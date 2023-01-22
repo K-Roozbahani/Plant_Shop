@@ -1,2 +1,2 @@
 .idea/
-*__paychache__*
+**/__pycache__/
