@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 from .utils.models.abstract_models import AbstractModel
+from plant_shop.users.models import User
 
 
 class Category(AbstractModel):
@@ -13,6 +13,9 @@ class Category(AbstractModel):
         db_table = 'category'
         verbose_name = _('category')
         verbose_name_plural = _('category')
+
+    def __str__(self):
+        return self.title
 
 
 class ProductAttribute(AbstractModel):
@@ -27,15 +30,36 @@ class ProductAttribute(AbstractModel):
         verbose_name = _('product attribute')
         verbose_name_plural = _('product attributes')
 
+    def __str__(self):
+        return self.title
+
 
 class Product(AbstractModel):
+    image = models.ImageField(verbose_name=_('image'), upload_to='products/images/')
     name = models.CharField(verbose_name=_('name'), max_length=64)
     price = models.PositiveSmallIntegerField(verbose_name=_('price'), default=0)
     stock = models.PositiveSmallIntegerField(verbose_name=_('stock'), default=0)
-    category = models.ManyToManyField(Category, related_name='products')
-    attribute = models.ManyToManyField(ProductAttribute, related_name='products')
+    categories = models.ManyToManyField(Category, related_name='products', verbose_name=_('categories'))
+    attributes = models.ManyToManyField(ProductAttribute, related_name='products', verbose_name=_('attributes'))
 
     class Meta:
         db_table = 'product'
         verbose_name = _('product')
         verbose_name_plural = _('products')
+
+    def __str__(self):
+        return self.name
+
+
+class Picture(AbstractModel):
+    owner = models.ForeignKey(User, models.CASCADE, related_name='pictures', verbose_name=_('owner'))
+    image = models.ImageField(verbose_name=_('image'), upload_to='products/pictures/')
+    product = models.ForeignKey(Product, models.CASCADE, related_name='pictures')
+
+    class Meta:
+        db_table = 'product'
+        verbose_name = _('product')
+        verbose_name_plural = _('products')
+
+    def __str__(self):
+        return f'image {str(self.id)} {self.product.name}'
