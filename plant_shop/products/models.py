@@ -32,6 +32,8 @@ class Product(AbstractModel):
     name = models.CharField(verbose_name=_('name'), max_length=64)
     price = models.PositiveSmallIntegerField(verbose_name=_('price'), default=0)
     stock = models.PositiveSmallIntegerField(verbose_name=_('stock'), default=0)
+    category = models.ManyToManyField(Category, related_name='products')
+    attribute = models.ManyToManyField(ProductAttribute, related_name='products')
 
     class Meta:
         db_table = 'product'
