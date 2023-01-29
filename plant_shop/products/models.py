@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from .utils.models.abstract_models import AbstractModel
-from plant_shop.users.models import User
+from users.models import User
 
 
 class Category(AbstractModel):
@@ -57,9 +57,9 @@ class Picture(AbstractModel):
     product = models.ForeignKey(Product, models.CASCADE, related_name='pictures')
 
     class Meta:
-        db_table = 'product'
-        verbose_name = _('product')
-        verbose_name_plural = _('products')
+        db_table = 'product_picture'
+        verbose_name = _('product picture')
+        verbose_name_plural = _('product pictures')
 
     def __str__(self):
         return f'image {str(self.id)} {self.product.name}'
