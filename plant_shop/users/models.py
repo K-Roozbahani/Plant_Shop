@@ -10,4 +10,4 @@ class User(AbstractUser):
     phone_number = models.CharField(verbose_name=_('phone number'), max_length=16, unique=True,
                                     validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$', message=message)])
     USERNAME_FIELD = "phone_number"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
