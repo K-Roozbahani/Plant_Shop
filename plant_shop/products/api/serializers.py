@@ -6,14 +6,15 @@ from ..models import Category, ProductAttribute, Product
 class ProductsAttributeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductAttribute
-        field = ('id', 'title', 'value', 'description', 'sub_attribute')
+        fields = ('id', 'title', 'value', 'description', 'sub_attribute')
         depth = 1
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    attributes = ProductsAttributeSerializer
+    attributes = ProductsAttributeSerializer(many=True)
     categories = serializers.StringRelatedField(many=True)
+    image = serializers.ImageField(use_url=True)
 
     class Meta:
         model = Product
-        field = ('categories', 'name', 'price', 'stock', 'categories', 'attributes')
+        fields = ('id', 'categories', 'name', 'price', 'stock', 'categories', 'attributes', 'image')
