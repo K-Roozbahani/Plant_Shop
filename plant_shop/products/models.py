@@ -23,7 +23,7 @@ class ProductAttribute(AbstractModel):
     description = models.CharField(verbose_name=_('description'), max_length=256, blank=True, null=True)
     value = models.FloatField(verbose_name=_('value'), blank=True, null=True)
     sub_attribute = models.ManyToManyField('ProductAttribute', related_name='parent_attribute',
-                                           verbose_name=_('sub_attribute'))
+                                           verbose_name=_('sub_attribute'), blank=True)
 
     class Meta:
         db_table = 'product_attribute'
