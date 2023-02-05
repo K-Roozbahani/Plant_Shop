@@ -4,13 +4,11 @@ from .api.views import ProductApiView
 
 def product_view(request, pk=None):
     if not pk:
-        api_response = ProductApiView.as_view({'get': 'list'})(request).data
-        products = [dict(product) for product in api_response]
-        context = {'products': products}
+        api_products = ProductApiView.as_view({'get': 'list'})(request).data
+        context = {'products': api_products}
         return render(request, 'products.html', context)
     elif pk:
         if not pk:
-            api_response = ProductApiView.as_view({'get': 'retrieve'})(request).data
-            product = dict(api_response)
-            context = {'products': product}
+            api_product = ProductApiView.as_view({'get': 'retrieve'})(request).data
+            context = {'products': api_product}
             return render(request, 'products.html', context)
