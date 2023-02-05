@@ -3,6 +3,15 @@ from rest_framework import serializers
 from ..models import Category, ProductAttribute, Product
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    parent_category = serializers.StringRelatedField()
+    sub_category = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Category
+        fields = ('id', 'title',  'parent_category', 'sub_category')
+
+
 class ProductsAttributeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductAttribute
