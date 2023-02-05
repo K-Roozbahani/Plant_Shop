@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MaxValueValidator
 from .utils.models.abstract_models import AbstractModel
 from users.models import User
 
@@ -41,6 +42,7 @@ class Product(AbstractModel):
     stock = models.PositiveSmallIntegerField(verbose_name=_('stock'), default=0)
     categories = models.ManyToManyField(Category, related_name='products', verbose_name=_('categories'))
     attributes = models.ManyToManyField(ProductAttribute, related_name='products', verbose_name=_('attributes'))
+    off = models.PositiveIntegerField(verbose_name='off', blank=True, null=True)
 
     class Meta:
         db_table = 'product'
@@ -63,3 +65,18 @@ class Picture(AbstractModel):
 
     def __str__(self):
         return f'image {str(self.id)} {self.product.name}'
+
+
+class ProductChoice(AbstractModel):
+    product = models.ForeignKey(Product, models.CASCADE, related_name='Choices', verbose_name=_('product'))
+    name = models.CharField(verbose_name=_('name'), max_length=64)
+    price = models.PositiveSmallIntegerField(verbose_name=_('price'), default=0)
+    stock = models.PositiveSmallIntegerField(verbose_name=_('stock'), default=0)
+    default_choice = models.BooleanField(verbose_name='default choice', default=False)
+    off = models.PositiveIntegerField(verbose_name='off', blank=True, null=True)
+
+    class Meta:
+        unique_together = ['product', 'name']
+        db_table = 'product_choice'
+        verbose_name = _('product choice')
+        verbose_name_plural = _('product choices')
