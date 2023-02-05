@@ -6,11 +6,12 @@ from users.models import User
 
 
 class Category(AbstractModel):
-    parent_category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="sub_category",
+    parent_category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="sub_categories",
                                         verbose_name=_('parent category'), null=True, blank=True)
     title = models.CharField(verbose_name=_('title'), max_length=64)
 
     class Meta:
+        unique_together = ['product', 'name']
         db_table = 'category'
         verbose_name = _('category')
         verbose_name_plural = _('category')
