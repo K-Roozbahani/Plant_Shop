@@ -1,8 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 from django.core.validators import MaxValueValidator
 from .utils.models.abstract_models import AbstractModel
-from users.models import User
+from ..users.models import User
+
+from ..plant_shop import settings
 
 
 class Category(AbstractModel):
@@ -81,3 +84,37 @@ class ProductChoice(AbstractModel):
         db_table = 'product_choice'
         verbose_name = _('product choice')
         verbose_name_plural = _('product choices')
+
+
+class Cart(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                related_name="user", verbose_name='user')
+    is_active = models.BooleanField(verbose_name=_('is active'), default=False)
+    total_price = models.PositiveBigIntegerField(verbose_name=_('total price'), default=0)
+    discount = models.PositiveBigIntegerField(verbose_name=_('discount'), default=0)
+
+    class Meta:
+        class Meta:
+            db_table = 'cart'
+            verbose_name = _('cart')
+            verbose_name_plural = _('carts')
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items", verbose_name=_('cart'))
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,
+                                related_name="cart_items", verbose_name=_('products'))
+    expire_time = models.DateTimeField(verbose_name=_('expire_time'),
+                                       default=timezone.now() + timezone.timedelta(hours=24))
+    count = models.PositiveSmallIntegerField(verbose_name=_('count'), default=1)
+
+    def get_price(self):
+        return self.product.price * self.count
+
+    def __str__(self):
+        return f'{str(self.count)} * {self.product.name}'
+
+    class Meta:
+        b_table = 'cart_item'
+        verbose_name = _('cart item')
+        verbose_name_plural = _('cart items')
