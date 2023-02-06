@@ -20,5 +20,5 @@ class ProductApiView(viewsets.ReadOnlyModelViewSet):
 
 
 class CategoryApiView(viewsets.ReadOnlyModelViewSet):
-    queryset = Category.valid_objects.perifetch_related('sub_categories').all()
+    queryset = Category.valid_objects.all()
     serializer_class = CategorySerializer
