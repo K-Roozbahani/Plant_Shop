@@ -11,7 +11,7 @@ class Category(AbstractModel):
     title = models.CharField(verbose_name=_('title'), max_length=64)
 
     class Meta:
-        unique_together = ['product', 'name']
+        unique_together = ['parent_category', 'title']
         db_table = 'category'
         verbose_name = _('category')
         verbose_name_plural = _('category')
