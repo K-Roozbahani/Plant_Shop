@@ -3,9 +3,9 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.core.validators import MaxValueValidator
 from .utils.models.abstract_models import AbstractModel
-from ..users.models import User
+from users.models import User
 
-from ..plant_shop import settings
+from plant_shop import settings
 
 
 class Category(AbstractModel):
@@ -94,10 +94,9 @@ class Cart(models.Model):
     discount = models.PositiveBigIntegerField(verbose_name=_('discount'), default=0)
 
     class Meta:
-        class Meta:
-            db_table = 'cart'
-            verbose_name = _('cart')
-            verbose_name_plural = _('carts')
+        db_table = 'cart'
+        verbose_name = _('cart')
+        verbose_name_plural = _('carts')
 
 
 class CartItem(models.Model):
@@ -115,6 +114,6 @@ class CartItem(models.Model):
         return f'{str(self.count)} * {self.product.name}'
 
     class Meta:
-        b_table = 'cart_item'
+        db_table = 'cart_item'
         verbose_name = _('cart item')
         verbose_name_plural = _('cart items')
