@@ -4,6 +4,7 @@ from ..models import Product, Category
 from .serializers import ProductSerializer, CategorySerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from rest_framework.pagination import PageNumberPagination
 
 
 class ProductApiView(viewsets.ReadOnlyModelViewSet):
@@ -14,6 +15,8 @@ class ProductApiView(viewsets.ReadOnlyModelViewSet):
     search_fields = ['name', 'categories__title']
     ordering_fields = ['created_time', 'price']
     ordering = ['created_time']
+    pagination_class = PageNumberPagination
+    page_size = 8
 
 
 class CategoryApiView(viewsets.ReadOnlyModelViewSet):
