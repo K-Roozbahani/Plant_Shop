@@ -5,11 +5,10 @@ from ..models import Category, ProductAttribute, Product
 
 class CategorySerializer(serializers.ModelSerializer):
     parent_category = serializers.StringRelatedField()
-    sub_category = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Category
-        fields = ('id', 'title',  'parent_category', 'sub_category')
+        fields = ('id', 'title', 'parent_category')
 
 
 class ProductsAttributeSerializer(serializers.ModelSerializer):
