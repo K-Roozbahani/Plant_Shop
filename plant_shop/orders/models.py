@@ -81,7 +81,7 @@ class DeliveryInformation(AbstractModel):
         verbose_name_plural = 'deliveries information'
 
 
-class CheckOut(AbstractModel):
+class Checkout(AbstractModel):
     NORMAL_POST = 1
     FAST_POST = 2
     POST_TYPE = ((NORMAL_POST, _('normal')), (FAST_POST, _('fast')))
@@ -90,8 +90,6 @@ class CheckOut(AbstractModel):
     order = models.OneToOneField(Order, models.CASCADE, related_name='order_send')
     post_type = models.PositiveSmallIntegerField(verbose_name=_('post type'), default=1, choices=POST_TYPE)
     send_cost = models.PositiveBigIntegerField(verbose_name=_('send cost'), default=0)
-    created_time = models.DateTimeField(verbose_name=_('created time'), auto_now_add=True)
-    modified_time = models.DateTimeField(verbose_name=_('modified time'), auto_now=True)
     tracking_code = models.PositiveIntegerField(verbose_name=_('tracking code'), auto_created=True, unique=True)
 
     class Meta:
