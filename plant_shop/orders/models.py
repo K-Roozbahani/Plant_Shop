@@ -27,7 +27,6 @@ class Order(AbstractModel):
     # -----------------fields-----------------------
     user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, related_name='orders', verbose_name='user')
     status = models.PositiveIntegerField(verbose_name=_('status'), default=1, choices=ORDER_STATUS)
-    tracking_code = models.BigAutoField(verbose_name=_('tracking code'))
     orders_price = models.PositiveBigIntegerField(verbose_name=_('order price'), default=0)
     payment_type = models.PositiveSmallIntegerField(verbose_name=_('payment type'), choices=PAYMENT_TYPE, default=1)
     is_paid = models.BooleanField(verbose_name=_('is paid'), default=False)
@@ -60,7 +59,7 @@ class OrderItem(AbstractModel):
 
 
 class DeliveryInformation(AbstractModel):
-    user = models.ForeignKey(settings.AUT_USER_MODEL, models.CASCADE,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE,
                              related_name='delivery_information', verbose_name='user')
     first_name = models.CharField(verbose_name=_('first name'), max_length=64)
     last_name = models.CharField(verbose_name=_('last name'), max_length=64)
