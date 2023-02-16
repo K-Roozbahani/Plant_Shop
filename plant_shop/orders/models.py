@@ -30,6 +30,7 @@ class Order(AbstractModel):
     orders_price = models.PositiveBigIntegerField(verbose_name=_('order price'), default=0)
     payment_type = models.PositiveSmallIntegerField(verbose_name=_('payment type'), choices=PAYMENT_TYPE, default=1)
     is_paid = models.BooleanField(verbose_name=_('is paid'), default=False)
+    is_open = models.BooleanField(verbose_name=_('is open'), default=True)
 
     class Meta:
         db_table = 'order'
