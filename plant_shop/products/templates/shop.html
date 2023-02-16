@@ -1,6 +1,7 @@
 ﻿<!doctype html>
 <html class="no-js" lang="fa-IR" dir="rtl">
-
+{% load static %}
+{% load humanize %}
     <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -9,29 +10,29 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}">
 
 	<!-- CSS
 	    ============================================ -->
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+	<link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
 	<!-- Font Awesome CSS -->
-	<link rel="stylesheet" href="assets/css/vendor/font.awesome.min.css">
+	<link rel="stylesheet" href="{% static 'assets/css/vendor/font.awesome.min.css' %}">
 	<!-- Linear Icons CSS -->
-	<link rel="stylesheet" href="assets/css/vendor/linearicons.min.css">
+	<link rel="stylesheet" href="{% static 'assets/css/vendor/linearicons.min.css' %}">
 	<!-- Swiper CSS -->
-	<link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css">
+	<link rel="stylesheet" href="{% static 'assets/css/plugins/swiper-bundle.min.css' %}">
 	<!-- Animation CSS -->
-	<link rel="stylesheet" href="assets/css/plugins/animate.min.css">
+	<link rel="stylesheet" href="{% static 'assets/css/plugins/animate.min.css' %}">
 	<!-- Jquery ui CSS -->
-	<link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css">
+	<link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.min.css' %}">
 	<!-- Nice Select CSS -->
-	<link rel="stylesheet" href="assets/css/plugins/nice-select.min.css">
+	<link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.min.css' %}">
 	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
+	<link rel="stylesheet" href="{% static 'assets/css/plugins/magnific-popup.css' %}">
 
 	<!-- Main Style CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 
     </head>
 
@@ -63,16 +64,10 @@
 			<div class="col-lg-8 d-none d-lg-flex justify-content-center col-custom">
 			    <nav class="main-nav d-none d-lg-flex">
 				<ul class="nav">
-				    <li>
-					<a href="index.html">
-					    <span class="menu-text"> خانه</span>
-					    <i class="fa fa-angle-down"></i>
+				     <li>
+					<a href="{% url 'products_view' %}">
+					    <span class="menu-text"> خانه </span>
 					</a>
-					<ul class="dropdown-submenu dropdown-hover">
-					    <li><a href="index.html">صفحه اصلی - 1</a></li>
-					    <li><a href="index-2.html">صفحه اصلی - 2</a></li>
-					    <li><a href="index-3.html">صفحه اصلی - 3</a></li>
-					</ul>
 				    </li>
 				    <li>
 					<a class="active" href="shop.html">
@@ -496,41 +491,42 @@
 			<!--shop toolbar end-->
 			<!-- Shop Wrapper Start -->
 			<div class="row shop_wrapper grid_3">
+				{% for product in products %}
 			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
 				<div class="product-item">
 				    <div class="single-product position-relative mr-0 ml-0">
 					<div class="product-image">
 					    <a class="d-block" href="product-details.html">
-						<img src="assets/images/product/1.jpg" alt="" class="product-image-1 w-100">
-						<img src="assets/images/product/2.jpg" alt="" class="product-image-2 position-absolute w-100">
+						<img src="{% static 'assets/images/product/1.jpg' %}" alt="" class="product-image-1 w-100">
+						<img src="{% static 'assets/images/product/2.jpg' %}" alt="" class="product-image-2 position-absolute w-100">
 					    </a>
 					    <span class="onsale">تخفیف!</span>
 					    <div class="add-action d-flex flex-column position-absolute">
-						<a href="compare.html" title="مقایسه">
+						<a href="#" title="مقایسه">
 						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
 						</a>
-						<a href="wishlist.html" title="لیست خرید بعدی">
+						<a href="#" title="لیست خرید بعدی">
 						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
 						</a>
-						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						<a href="{% url 'product_detail' pk=product.id %}" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
 						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
 						</a>
 					    </div>
 					</div>
 					<div class="product-content">
 					    <div class="product-title">
-						<h4 class="title-2"> <a href="product-details.html">گلهای گل چوبی صورتی</a></h4>
+						<h4 class="title-2"> <a href="{% url 'product_detail' pk=product.id %}">{{ product.name }}</a></h4>
 					    </div>
 					    <div class="product-rating">
 						<i class="fa fa-star"></i>
 						<i class="fa fa-star"></i>
 						<i class="fa fa-star"></i>
-						<i class="fa fa-star-o"></i>
-						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
 					    </div>
 					    <div class="price-box">
-						<span class="regular-price ">60،000 تومان</span>
-						<span class="old-price"><del>70،000 تومان</del></span>
+						<span class="regular-price ">{{ product.price|intcomma }} ﷼</span>
+						<span class="old-price"><del>{{ product.price|intcomma  }} تومان</del></span>
 					    </div>
 					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
 					</div>
@@ -546,16 +542,16 @@
 						<i class="fa fa-star-o"></i>
 					    </div>
 					    <div class="price-box">
-						<span class="regular-price ">60،000 تومان</span>
-						<span class="old-price"><del>70،000 تومان</del></span>
+						<span class="regular-price ">{{ prodduct.price }} ﷼</span>
+						<span class="old-price"><del>{{ prodduct.price }}*1.1 ﷼</del></span>
 					    </div>
-					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <p class="desc-content"> {{ product.description }} </p>
 					    <div class="button-listview">
 						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
-						<a class="list-icon" href="compare.html" title="مقایسه">
+						<a class="list-icon" href="#" title="مقایسه">
 						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
 						</a>
-						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						<a class="list-icon" href="#" title="لیست خرید بعدی">
 						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
 						</a>
 					    </div>
@@ -563,6 +559,7 @@
 				    </div>
 				</div>
 			    </div>
+				{% endfor %}
 			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
 				<div class="product-item">
 				    <div class="single-product position-relative mr-0 ml-0">
@@ -1713,27 +1710,27 @@
     ============================================ -->
 
 	<!-- Modernizer JS -->
-	<script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+	<script src="{% static 'assets/js/vendor/modernizr-3.7.1.min.js' %}"></script>
 	<!-- jQuery JS -->
-	<script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+	<script src="{% static 'assets/js/vendor/jquery-3.5.1.min.js' %}"></script>
 	<!-- Bootstrap JS -->
-	<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+	<script src="{% static 'assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
 
 	<!-- Swiper Slider JS -->
-	<script src="assets/js/plugins/swiper-bundle.min.js"></script>
+	<script src="{% static 'assets/js/plugins/swiper-bundle.min.js' %}"></script>
 	<!-- nice select JS -->
-	<script src="assets/js/plugins/nice-select.min.js"></script>
+	<script src="{% static 'assets/js/plugins/nice-select.min.js' %}"></script>
 	<!-- Ajaxchimpt js -->
-	<script src="assets/js/plugins/jquery.ajaxchimp.min.js"></script>
+	<script src="{% static 'assets/js/plugins/jquery.ajaxchimp.min.js' %}"></script>
 	<!-- Jquery Ui js -->
-	<script src="assets/js/plugins/jquery-ui.min.js"></script>
+	<script src="{% static 'assets/js/plugins/jquery-ui.min.js' %}"></script>
 	<!-- Jquery Countdown js -->
-	<script src="assets/js/plugins/jquery.countdown.min.js"></script>
+	<script src="{% static 'assets/js/plugins/jquery.countdown.min.js' %}"></script>
 	<!-- jquery magnific popup js -->
-	<script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
+	<script src="{% static 'assets/js/plugins/jquery.magnific-popup.min.js' %}"></script>
 
 	<!-- Main JS -->
-	<script src="assets/js/main.js"></script>
+	<script src="{% static 'assets/js/main.js' %}"></script>
 
 
     </body>
