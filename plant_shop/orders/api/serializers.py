@@ -1,10 +1,29 @@
 from rest_framework import serializers
 from ..models import Order, OrderItem, DeliveryInformation, Checkout
+from products.api.serializers import ProductSerializer
+from products.models import Product
+
+
+# this class get product primary key and display product data serializer
+class ProductRelatedField(serializers.RelatedField):
+    def to_representation(self, value):
+        serializer = ProductSerializer(value)
+        return serializer.data
+
+    def to_internal_value(self, data):
+        if type(data) != int:
+            raise serializers.ValidationError(f"Input must be integer not {type(data)}")
+        try:
+            product_instance = Product.valid_objects.get(id=data)
+        except Product.DoesExist:
+            raise serializers.ValidationError("Products dose not exist")
+        return product_instance
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
     price = serializers.SerializerMethodField()
     order = serializers.PrimaryKeyRelatedField(queryset=Order.valid_objects.all(), allow_empty=True)
+    product = ProductRelatedField(queryset=Product.valid_objects.all())
 
     class Meta:
         model = OrderItem
@@ -25,7 +44,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'is_open','user', 'get_status_display', 'orders_price',
+        fields = ('id', 'is_open', 'user', 'get_status_display', 'orders_price',
                   'get_payment_type_display', 'is_paid', 'order_items', 'status', 'payment_type')
         read_only_fields = ('orders_price', 'is_paid')
         extra_kwargs = {'status': {'write_only': True, 'default': 1},
@@ -93,23 +112,3 @@ class CheckoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Checkout
         fields = ('id', 'order', 'delivery_information', 'order', 'post_type', 'send_cost', 'tracking_code')
-
-# class OrderDetailSerializer(serializers.ModelSerializer):
-#     user = serializers.StringRelatedField()
-#     status = serializers.SerializerMethodField()
-#     payment_type = serializers.SerializerMethodField()
-#
-#     class Meta:
-#         model = Order
-#         fields = ('id', 'user', 'status', 'orders_price', 'payment_type', 'is_paid')
-#
-#     def get_status(self, obj):
-#         return obj.get_status_display()
-#
-#     def get_payment_type(self, obj):
-#         return obj.get_payment_type()
-#
-#     def create(self, validated_data):
-#         user = self.context['request'].user
-#         instance = Order.Create(user=user, **validated_data)
-#         return instance
