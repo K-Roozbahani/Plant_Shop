@@ -1,23 +1,7 @@
 from rest_framework import serializers
 from ..models import Order, OrderItem, DeliveryInformation, Checkout
-from products.api.serializers import ProductSerializer
+from products.api.serializers import ProductSerializer, ProductRelatedField
 from products.models import Product
-
-
-# this class get product primary key and display product data serializer
-class ProductRelatedField(serializers.RelatedField):
-    def to_representation(self, value):
-        serializer = ProductSerializer(value)
-        return serializer.data
-
-    def to_internal_value(self, data):
-        if type(data) != int:
-            raise serializers.ValidationError(f"Input must be integer not {type(data)}")
-        try:
-            product_instance = Product.valid_objects.get(id=data)
-        except Product.DoesExist:
-            raise serializers.ValidationError("Products dose not exist")
-        return product_instance
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
