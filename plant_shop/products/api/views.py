@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from ..models import Product, Category, Cart, CartItem
 from .serializers import (ProductSerializer, CategorySerializer, CartSerializer,
-                          CartItemCreateSerializer, CartItemDetailSerializer)
+                          CartItemSerializer)
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination
@@ -49,13 +49,8 @@ class CartApiView(viewsets.ViewSet):
 
 class CartItemApiView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
+    serializer_class = CartItemSerializer
 
     def get_queryset(self):
         cart = self.request.user.cart
         return CartItem.valid_objects.filter(cart=cart)
-
-    def get_serializer_class(self):
-        if self.action in ('list', 'retrieve'):
-            return CartItemDetailSerializer
-        else:
-            return CartItemCreateSerializer
