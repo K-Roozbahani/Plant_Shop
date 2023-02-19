@@ -32,7 +32,8 @@ class ProductSerializer(serializers.ModelSerializer):
 class ProductRelatedField(serializers.RelatedField):
     def to_representation(self, value):
         serializer = ProductSerializer(value)
-        product = {"id": serializer.data["id"], "name": serializer.data['name'], "price": serializer.data['price']}
+        product = {"id": serializer.data["id"], "name": serializer.data['name'],
+                   "price": serializer.data['price'], "image": serializer.data["image"]}
         return product
 
     def to_internal_value(self, data):
