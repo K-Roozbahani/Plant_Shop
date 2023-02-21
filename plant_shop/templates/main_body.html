@@ -3,6 +3,7 @@
 {% load static %}
 {% load humanize %}
     <head>
+		{% block head %}
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title> فروشگاه گل و گلدون </title>
@@ -33,12 +34,13 @@
 
 	<!-- Main Style CSS -->
 	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-
+	{% endblock head %}
     </head>
 
     <body>
-
+	{% block body %}
 	<!--===== Pre-Loading area Start =====-->
+	{% block pre_load %}
 	<div id="preloader">
 	    <div class="preloader">
 		<div class="spinner-block">
@@ -46,9 +48,11 @@
 		</div>
 	    </div>
 	</div>
+	{% endblock pre_load %}
 	<!--==== Pre-Loading Area End ====-->
 
 	<!-- Header Area Start Here -->
+	{% block header %}
 	<header class="main-header-area">
 	    <!-- Main Header Area Start -->
 	    <div class="main-header header-sticky">
@@ -56,11 +60,14 @@
 		    <div class="row align-items-center">
 			<div class="col-lg-2 col-xl-2 col-md-6 col-6 col-custom">
 			    <div class="header-logo d-flex align-items-center">
+					{% block logo %}
 				<a href="index.html">
-				    <img class="img-full" src="assets/images/logo/logo.png" alt="Header Logo">
+				    <img class="img-full" src="{% static 'assets/images/logo/logo.png' %}" alt="Header Logo">
 				</a>
+					{% endblock logo %}
 			    </div>
 			</div>
+				{% block navbar %}
 			<div class="col-lg-8 d-none d-lg-flex justify-content-center col-custom">
 			    <nav class="main-nav d-none d-lg-flex">
 				<ul class="nav">
@@ -77,50 +84,50 @@
 					<div class="mega-menu dropdown-hover">
 					    <div class="menu-colum">
 						<ul>
-						    <li><span class="mega-menu-text">صفحه فروشگاه</span></li>
-						    <li><a class="active" href="shop.html">فروشگاه سایدبار چپ</a></li>
-						    <li><a href="shop-right-sidebar.html">فروشگاه سایدبار راست</a></li>
-						    <li><a href="shop-list-left.html">فروشگاه لیستی سایدبار چپ</a></li>
-						    <li><a href="shop-list-right.html">فروشگاه لیستی سایدبار راست</a></li>
-						    <li><a href="shop-fullwidth.html">فروشگاه تمام عرض</a></li>
+						    <li><span class="mega-menu-text">دسته بندی اول</span></li>
+						    <li><a class="active" href="shop.html">دسته بندی دوم</a></li>
+						    <li><a href="#">دسته بندی سوم</a></li>
+						    <li><a href="#">دسته بندی چهارم</a></li>
+						    <li><a href="#">دسته بندی ۵</a></li>
+						    <li><a href="#">دسته بندی ۶</a></li>
 						</ul>
 					    </div>
 					    <div class="menu-colum">
 						<ul>
 						    <li><span class="mega-menu-text">محصول</span></li>
-						    <li><a href="product-details.html">صفحه محصول</a></li>
-						    <li><a href="variable-product-details.html">محصول متغیر</a></li>
-						    <li><a href="external-product-details.html">محصول خارجی</a></li>
-						    <li><a href="gallery-product-details.html">گالری محصول</a></li>
-						    <li><a href="countdown-product-details.html">محصول تخفیف دار</a></li>
+						    <li><a href="#">صفحه محصول</a></li>
+						    <li><a href="#">محصول متغیر</a></li>
+						    <li><a href="#">محصول خارجی</a></li>
+						    <li><a href="#">گالری محصول</a></li>
+						    <li><a href="#">محصول تخفیف دار</a></li>
 						</ul>
 					    </div>
 					    <div class="menu-colum">
 						<ul>
 						    <li><span class="mega-menu-text">دیگر صفحه ها</span></li>
-						    <li><a href="error-404.html">صفحه 404</a></li>
-						    <li><a href="compare.html">مقایسه محصول</a></li>
-						    <li><a href="cart.html">سبد خرید</a></li>
-						    <li><a href="checkout.html">ثبت نهائی</a></li>
-						    <li><a href="wishlist.html">علاقه مندی ها</a></li>
+						    <li><a href="#">صفحه 404</a></li>
+						    <li><a href="#">مقایسه محصول</a></li>
+						    <li><a href="#">سبد خرید</a></li>
+						    <li><a href="#">ثبت نهائی</a></li>
+						    <li><a href="#">علاقه مندی ها</a></li>
 						</ul>
 					    </div>
 					</div>
 				    </li>
 				    <li>
-					<a href="blog-details-fullwidth.html">
+					<a href="#">
 					    <span class="menu-text"> بلاگ</span>
 					    <i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-submenu dropdown-hover">
-					    <li><a href="blog.html">بلاگ سایدبار چپ</a></li>
-					    <li><a href="blog-list-right-sidebar.html">بلاگ سایدبار راست</a></li>
-					    <li><a href="blog-list-fullwidth.html">بلاگ تمام عرض</a></li>
-					    <li><a href="blog-grid.html">بلاگ شبکه ای</a></li>
-					    <li><a href="blog-grid-right-sidebar.html">بلاگ شبکه ای سایدبار راست</a></li>
-					    <li><a href="blog-grid-fullwidth.html">بلاگ شبکه ای تمام عرض</a></li>
-					    <li><a href="blog-details-sidebar.html">صفحه خبر با سایدبار</a></li>
-					    <li><a href="blog-details-fullwidth.html">صفحه خبر تمام عرض</a></li>
+					    <li><a href="#">بلاگ سایدبار چپ</a></li>
+					    <li><a href="#">بلاگ سایدبار راست</a></li>
+					    <li><a href="#">بلاگ تمام عرض</a></li>
+					    <li><a href="#">بلاگ شبکه ای</a></li>
+					    <li><a href="#">بلاگ شبکه ای سایدبار راست</a></li>
+					    <li><a href="#">بلاگ شبکه ای تمام عرض</a></li>
+					    <li><a href="#">صفحه خبر با سایدبار</a></li>
+					    <li><a href="#">صفحه خبر تمام عرض</a></li>
 					</ul>
 				    </li>
 				    <li>
@@ -129,83 +136,59 @@
 					    <i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-submenu dropdown-hover">
-					    <li><a href="contact-us.html">تماس با ما</a></li>
-					    <li><a href="my-account.html">پروفایل کاربری</a></li>
-					    <li><a href="frequently-questions.html">پرسش و پاسخ</a></li>
-					    <li><a href="login.html">ورود اعضا</a></li>
-					    <li><a href="register.html">ثبت نام</a></li>
+					    <li><a href="#">تماس با ما</a></li>
+					    <li><a href="#">پروفایل کاربری</a></li>
+					    <li><a href="#">پرسش و پاسخ</a></li>
+					    <li><a href="#">ورود اعضا</a></li>
+					    <li><a href="#">ثبت نام</a></li>
 					</ul>
 				    </li>
 				    <li>
-					<a href="about-us.html">
-					    <span class="menu-text"> درباره ما</span>
+					<a href="#">
+					    <span class="#"> درباره ما</span>
 					</a>
 				    </li>
 				    <li>
-					<a href="contact-us.html">
-					    <span class="menu-text">تماس با ما</span>
+					<a href="#">
+					    <span class="#">تماس با ما</span>
 					</a>
 				    </li>
 				</ul>
 			    </nav>
 			</div>
+				{% endblock navbar %}
 			<div class="col-lg-2 col-md-6 col-6 col-custom">
 			    <div class="header-right-area main-nav">
+					{% block cart_navbar %}
 				<ul class="nav">
 				    <li class="minicart-wrap">
 					<a href="#" class="minicart-btn toolbar-btn">
 					    <i class="fa fa-shopping-cart"></i>
-					    <span class="cart-item_count">3</span>
+					    <span class="cart-item_count">{{ cart.cart_items|length }}</span> <!-- ---------------- number of cart items -->
 					</a>
+						<!-- ********************************* cart items ********************************* -->
+						{% if cart.cart_items %}
 					<div class="cart-item-wrapper dropdown-sidemenu dropdown-hover-2">
+						{% for cart_item in cart.cart_items %}
 					    <div class="single-cart-item">
 						<div class="cart-img">
-						    <a href="cart.html"><img src="assets/images/cart/1.jpg" alt=""></a>
+						    <a href="cart.html"><img src={{ cart_item.product.image }} alt={{ cart_item.product.name}}></a>
 						</div>
 						<div class="cart-text">
-						    <h5 class="title"><a href="cart.html">دسته گل شکوفه</a></h5>
+						    <h5 class="title"><a href="cart.html">{{ cart_item.product.name }}</a></h5>
 						    <div class="cart-text-btn">
 							<div class="cart-qty">
-							    <span>1×</span>
-							    <span class="cart-price">80،000 تومان</span>
+							    <span>{{ cart_item.count }}×</span>
+							    <span class="cart-price">{{ cart_item.product.price|intcomma }} تومان</span>
 							</div>
 							<button type="button"><i class="ion-trash-b"></i></button>
 						    </div>
 						</div>
 					    </div>
-					    <div class="single-cart-item">
-						<div class="cart-img">
-						    <a href="cart.html"><img src="assets/images/cart/2.jpg" alt=""></a>
-						</div>
-						<div class="cart-text">
-						    <h5 class="title"><a href="cart.html">دسته گل های صورتی</a></h5>
-						    <div class="cart-text-btn">
-							<div class="cart-qty">
-							    <span>1×</span>
-							    <span class="cart-price">80،000 تومان</span>
-							</div>
-							<button type="button"><i class="ion-trash-b"></i></button>
-						    </div>
-						</div>
-					    </div>
-					    <div class="single-cart-item">
-						<div class="cart-img">
-						    <a href="cart.html"><img src="assets/images/cart/3.jpg" alt=""></a>
-						</div>
-						<div class="cart-text">
-						    <h5 class="title"><a href="cart.html">دسته گل های قرمز و زرد</a></h5>
-						    <div class="cart-text-btn">
-							<div class="cart-qty">
-							    <span>1×</span>
-							    <span class="cart-price">80،000 تومان</span>
-							</div>
-							<button type="button"><i class="ion-trash-b"></i></button>
-						    </div>
-						</div>
-					    </div>
+						{% endfor %}
 					    <div class="cart-price-total d-flex justify-content-between">
 						<h5>مبلغ کل :</h5>
-						<h5>240،000 تومان</h5>
+						<h5>{{ cart.total_price|intcomma }} تومان</h5>
 					    </div>
 					    <div class="cart-links d-flex justify-content-between">
 						<a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">سبد خرید</a>
@@ -213,11 +196,12 @@
 					    </div>
 					</div>
 				    </li>
+					{% endif %}
 				    <li class="sidemenu-wrap">
 					<a href="#"><i class="fa fa-search"></i> </a>
 					<ul class="dropdown-sidemenu dropdown-hover-2 dropdown-search">
 					    <li>
-						<form action="#">
+						<form action="{% url 'products_view' %}">
 						    <input name="جستجو" id="جستجو" placeholder="جستجو" type="text">
 						    <button type="submit"><i class="fa fa-search"></i></button>
 						</form>
@@ -235,6 +219,7 @@
 					</a>
 				    </li>
 				</ul>
+					{% endblock cart_navbar %}
 			    </div>
 			</div>
 		    </div>
@@ -437,6 +422,7 @@
 	    </aside>
 	    <!-- off-canvas menu end -->
 	</header>
+	{% endblock header %}
 	<!-- Header Area End Here -->
 	<!-- Breadcrumb Area Start Here -->
 	<div class="breadcrumbs-area position-relative">
@@ -1725,7 +1711,7 @@
 	<!-- Main JS -->
 	<script src="{% static 'assets/js/main.js' %}"></script>
 
-
+	{% endblock body %}
     </body>
 
 </html>
