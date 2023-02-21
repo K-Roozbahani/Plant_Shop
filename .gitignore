@@ -1,3 +1,4 @@
 .idea/
 **/__pycache__/
 plant_shop/static/
+*/db.sqlite3
