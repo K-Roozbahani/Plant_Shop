@@ -1,1 +1,1061 @@
 ﻿{% extends "main_body.html" %}
+{% load static %}
+{% load humanize %}
+{% block title_content %}لیست محصولات{% endblock title_content %}
+{% block context %}
+	<!-- Shop Main Area Start Here -->
+	<div class="shop-main-area">
+	    <div class="container container-default custom-area">
+		<div class="row flex-row-reverse">
+		    <div class="col-lg-9 col-12 col-custom widget-mt">
+			<!--shop toolbar start-->
+			<div class="shop_toolbar_wrapper mb-30">
+			    <div class="shop_toolbar_btn">
+				<button data-role="grid_3" type="button" class="active btn-grid-3" title="Grid"><i class="fa fa-th"></i></button>
+				<button data-role="grid_list" type="button" class="btn-list" title="List"><i class="fa fa-th-list"></i></button>
+			    </div>
+			    <div class="shop-select">
+				<form class="d-flex flex-column w-100" action="#">
+				    <div class="form-group">
+					<select class="form-control nice-select w-100">
+					    <option selected="" value="1">بر اساس حروف الفبا</option>
+					    <option value="2">بر اساس محبوب ترین ها</option>
+					    <option value="3">بر اساس تاریخ</option>
+					    <option value="4">قیمت پایین به بالا</option>
+					    <option value="5">قیمت بالا به پایین</option>
+					    <option value="6">پر فروش ترین ها</option>
+					</select>
+				    </div>
+				</form>
+			    </div>
+			</div>
+			<!--shop toolbar end-->
+			<!-- Shop Wrapper Start -->
+			<div class="row shop_wrapper grid_3">
+				{% for product in products %}
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="{% static 'assets/images/product/1.jpg' %}" alt="" class="product-image-1 w-100">
+						<img src="{% static 'assets/images/product/2.jpg' %}" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <span class="onsale">تخفیف!</span>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="#" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="#" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="{% url 'product_detail' pk=product.id %}" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="{% url 'product_detail' pk=product.id %}">{{ product.name }}</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">{{ product.price|intcomma }} ﷼</span>
+						<span class="old-price"><del>{{ product.price|intcomma  }} تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گلهای گل چوبی صورتی</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">{{ product.price }} ﷼</span>
+						<span class="old-price"><del>{{ product.price }}*1.1 ﷼</del></span>
+					    </div>
+					    <p class="desc-content"> {{ product.description }} </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="#" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="#" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+				{% endfor %}
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/3.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/4.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل یاس سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل یاس سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/5.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/6.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <span class="onsale">تخفیف!</span>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل دسته گل شکوفه</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل دسته گل شکوفه</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/7.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/8.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل ارکیده با دسته قرمز</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل ارکیده با دسته قرمز</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/9.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/1.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">دسته گل سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">دسته گل سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/8.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/7.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <span class="onsale">تخفیف!</span>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل سنبل با دسته سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل سنبل با دسته سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/1.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/2.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <span class="onsale">تخفیف!</span>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گلهای گل چوبی صورتی</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">60،000 تومان</span>
+						<span class="old-price"><del>70،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گلهای گل چوبی صورتی</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">60،000 تومان</span>
+						<span class="old-price"><del>70،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/3.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/4.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <span class="onsale">تخفیف!</span>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل یاس سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل یاس سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/5.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/6.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <span class="onsale">تخفیف!</span>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل دسته گل شکوفه</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل دسته گل شکوفه</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/7.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/8.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل ارکیده با دسته قرمز</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل ارکیده با دسته قرمز</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/9.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/1.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">دسته گل سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">دسته گل سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+					    <a class="d-block" href="product-details.html">
+						<img src="assets/images/product/8.jpg" alt="" class="product-image-1 w-100">
+						<img src="assets/images/product/7.jpg" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <span class="onsale">تخفیف!</span>
+					    <div class="add-action d-flex flex-column position-absolute">
+						<a href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="right" title="مقایسه"></i>
+						</a>
+						<a href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="right" title="پسندیدم"></i>
+						</a>
+						<a href="#exampleModalCenter" title="نمایش سریع" data-toggle="modal" data-target="#exampleModalCenter">
+						    <i class="lnr lnr-eye" data-toggle="tooltip" data-placement="right" title="نمایش سریع"></i>
+						</a>
+					    </div>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل سنبل با دسته سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="product-details.html">گل سنبل با دسته سفید</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">80،000 تومان</span>
+						<span class="old-price"><del>90،000 تومان</del></span>
+					    </div>
+					    <p class="desc-content">چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="compare.html" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="wishlist.html" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			</div>
+			<!-- Shop Wrapper End -->
+			<!-- Bottom Toolbar Start -->
+			<div class="row">
+			    <div class="col-sm-12 col-custom">
+				<div class="toolbar-bottom">
+				    <div class="pagination">
+					<ul>
+					    <li class="current">1</li>
+					    <li><a href="#">2</a></li>
+					    <li><a href="#">3</a></li>
+					    <li class="next"><a href="#">بعدی</a></li>
+					    <li><a href="#">&gt;&gt;</a></li>
+					</ul>
+				    </div>
+				    <p class="desc-content text-center text-sm-right mb-0">نمایش 1 - 12 از 34 نتیجه</p>
+				</div>
+			    </div>
+			</div>
+			<!-- Bottom Toolbar End -->
+		    </div>
+		    <div class="col-lg-3 col-12 col-custom">
+			<!-- Sidebar Widget Start -->
+			<aside class="sidebar_widget widget-mt">
+			    <div class="widget_inner">
+				<div class="widget-list widget-mb-1">
+				    <h3 class="widget-title">جستجو</h3>
+				    <div class="search-box">
+					<div class="input-group">
+					    <input type="text" class="form-control" placeholder="جستجو کنید" aria-label="جستجو کنید">
+					    <div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button">
+						    <i class="fa fa-search"></i>
+						</button>
+					    </div>
+					</div>
+				    </div>
+				</div>
+				<div class="widget-list widget-mb-1">
+				    <h3 class="widget-title">دسته بندی محصولات</h3>
+				    <!-- Widget Menu Start -->
+				    <nav>
+					<ul class="mobile-menu p-0 m-0">
+					    <li class="menu-item-has-children"><a href="#">گیاه های آپارتمانی</a>
+						<ul class="dropdown">
+						    <li><a href="#">سانسوریا</a></li>
+						    <li><a href="#">پتوس</a></li>
+						    <li><a href="#">زاموفیلیا</a></li>
+						</ul>
+					    </li>
+					    <li class="menu-item-has-children"><a href="#">گل های شاخه ای</a>
+						<ul class="dropdown">
+						    <li><a href="#">سبد گل</a></li>
+						    <li><a href="#">دسته گل</a></li>
+						    <li><a href="#">گل های ساده</a></li>
+						    <li><a href="#">گل های تزئینی</a></li>
+						</ul>
+					    </li>
+					    <li class="menu-item-has-children"><a href="#">گل های هدیه ای</a>
+						<ul class="dropdown">
+						    <li><a href="#">Calendula</a></li>
+						    <li><a href="#">Castor Bean</a></li>
+						    <li><a href="#">Catmint</a></li>
+						    <li><a href="#">Chives</a></li>
+						</ul>
+					    </li>
+					    <li class="menu-item-has-children"><a href="#">خاک گلدان</a>
+						<ul class="dropdown">
+						    <li><a href="#">گلدان هدیه</a></li>
+						    <li><a href="#">گلدان رومیزی</a></li>
+						    <li><a href="#">درختچه هدیه</a></li>
+						</ul>
+					    </li>
+					</ul>
+				    </nav>
+				    <!-- Widget Menu End -->
+				</div>
+				<div class="widget-list widget-mb-1">
+				    <h3 class="widget-title">فیلتر قیمت</h3>
+				    <!-- Widget Menu Start -->
+				    <form action="#">
+					<div id="slider-range"></div>
+					<button type="submit">فیلتر</button>
+					<input type="text" name="text" id="amount">
+				    </form>
+				    <!-- Widget Menu End -->
+				</div>
+				<div class="widget-list widget-mb-1">
+				    <h3 class="widget-title">دسته بندی ها</h3>
+				    <div class="sidebar-body">
+					<ul class="sidebar-list">
+					    <li><a href="#">تمام محصولات</a></li>
+					    <li><a href="#">پرفروش ترین ها</a></li>
+					    <li><a href="#">ویژه ها</a></li>
+					    <li><a href="#">محصولات جدید</a></li>
+					</ul>
+				    </div>
+				</div>
+				<div class="widget-list widget-mb-2">
+				    <h3 class="widget-title">رنگ</h3>
+				    <div class="sidebar-body">
+					<ul class="checkbox-container categories-list">
+					    <li>
+						<div class="custom-control custom-checkbox">
+						    <input type="checkbox" class="custom-control-input" id="customCheck12">
+						    <label class="custom-control-label" for="customCheck12">مشکی</label>
+						</div>
+					    </li>
+					    <li>
+						<div class="custom-control custom-checkbox">
+						    <input type="checkbox" class="custom-control-input" id="customCheck13">
+						    <label class="custom-control-label" for="customCheck13">قرمز</label>
+						</div>
+					    </li>
+					    <li>
+						<div class="custom-control custom-checkbox">
+						    <input type="checkbox" class="custom-control-input" id="customCheck14">
+						    <label class="custom-control-label" for="customCheck14">آبی</label>
+						</div>
+					    </li>
+					    <li>
+						<div class="custom-control custom-checkbox">
+						    <input type="checkbox" class="custom-control-input" id="customCheck11">
+						    <label class="custom-control-label" for="customCheck11">سبز</label>
+						</div>
+					    </li>
+					    <li>
+						<div class="custom-control custom-checkbox">
+						    <input type="checkbox" class="custom-control-input" id="customCheck15">
+						    <label class="custom-control-label" for="customCheck15">صورتی</label>
+						</div>
+					    </li>
+					</ul>
+				    </div>
+				</div>
+				<div class="widget-list widget-mb-3">
+				    <h3 class="widget-title">برچسب ها</h3>
+				    <div class="sidebar-body">
+					<ul class="tags">
+					    <li><a href="#">گلدان رومیزی</a></li>
+					    <li><a href="#">درختچه هدیه</a></li>
+					    <li><a href="#">لاله</a></li>
+					    <li><a href="#">گلدان هدیه</a></li>
+					    <li><a href="#">هوشمند</a></li>
+					    <li><a href="#">مدرن</a></li>
+					    <li><a href="#">هدیه</a></li>
+					</ul>
+				    </div>
+				</div>
+				<div class="widget-list mb-0">
+				    <h3 class="widget-title">آخرین محصولات</h3>
+				    <div class="sidebar-body">
+					<div class="sidebar-product align-items-center">
+					    <a href="product-details.html" class="image">
+						<img src="assets/images/cart/1.jpg" alt="product">
+					    </a>
+					    <div class="product-content">
+						<div class="product-title">
+						    <h4 class="title-2"> <a href="product-details.html">دسته 20 عددی گل لاله</a></h4>
+						</div>
+						<div class="price-box">
+						    <span class="regular-price ">80،000 تومان</span>
+						    <span class="old-price"><del>90،000 تومان</del></span>
+						</div>
+						<div class="product-rating">
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star-o"></i>
+						    <i class="fa fa-star-o"></i>
+						</div>
+					    </div>
+					</div>
+					<div class="sidebar-product align-items-center">
+					    <a href="product-details.html" class="image">
+						<img src="assets/images/cart/2.jpg" alt="product">
+					    </a>
+					    <div class="product-content">
+						<div class="product-title">
+						    <h4 class="title-2"> <a href="product-details.html">سبد گل داوودی</a></h4>
+						</div>
+						<div class="price-box">
+						    <span class="regular-price ">50،000 تومان</span>
+						    <span class="old-price"><del>60،000 تومان</del></span>
+						</div>
+						<div class="product-rating">
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star-o"></i>
+						</div>
+					    </div>
+					</div>
+					<div class="sidebar-product align-items-center">
+					    <a href="product-details.html" class="image">
+						<img src="assets/images/cart/3.jpg" alt="product">
+					    </a>
+					    <div class="product-content">
+						<div class="product-title">
+						    <h4 class="title-2"> <a href="product-details.html">سبد گل رز</a></h4>
+						</div>
+						<div class="price-box">
+						    <span class="regular-price ">40،000 تومان</span>
+						    <span class="old-price"><del>50،000 تومان</del></span>
+						</div>
+						<div class="product-rating">
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star"></i>
+						    <i class="fa fa-star-o"></i>
+						</div>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			</aside>
+			<!-- Sidebar Widget End -->
+		    </div>
+		</div>
+	    </div>
+	</div>
+	<!-- Shop Main Area End Here -->
+{% endblock context %}
