@@ -25,7 +25,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'categories', 'name', 'price', 'stock', 'categories', 'attributes', 'image')
+        fields = ('id', 'categories', 'name', 'price', 'stock', 'description', 'attributes', 'image')
 
 
 # this class get product primary key and display product data serializer
