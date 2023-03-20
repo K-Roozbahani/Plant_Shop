@@ -1,0 +1,122 @@
+﻿{% extends "main_body.html" %}
+{% load static %}
+{% load humanize %}
+{% block title_content %}لیست محصولات{% endblock title_content %}
+{% block context %}
+
+	<!-- Shop Main Area Start Here -->
+	<div class="shop-main-area">
+	    <div class="container container-default custom-area">
+		<div class="row flex-row-reverse">
+		    <div class="col-12 col-custom widget-mt">
+			<!--shop toolbar start-->
+			<div class="shop_toolbar_wrapper mb-30">
+			    <div class="shop_toolbar_btn">
+				<button data-role="grid_4" type="button" class="active btn-grid-4" title="Grid-4"><i class="fa fa-th"></i></button>
+				<button data-role="grid_3" type="button" class="btn-grid-3" title="Grid-3"> <i class="fa fa-th-large"></i></button>
+				<button data-role="grid_list" type="button" class="btn-list" title="List"><i class="fa fa-th-list"></i></button>
+			    </div>
+			    <div class="shop-select">
+				<form class="d-flex flex-column w-100" action="#">
+				    <div class="form-group">
+					<select class="form-control nice-select w-100">
+					    <option selected="" value="1">بر اساس حروف الفبا</option>
+					    <option value="2">بر اساس محبوب ترین ها</option>
+					    <option value="3">بر اساس تاریخ</option>
+					    <option value="4">قیمت پایین به بالا</option>
+					    <option value="5">قیمت بالا به پایین</option>
+					    <option value="6">پر فروش ترین ها</option>
+					</select>
+				    </div>
+				</form>
+			    </div>
+			</div>
+			<!--shop toolbar end-->
+			<!-- Shop Wrapper Start -->
+			<div class="row shop_wrapper grid_4">
+				{% for product in products %}
+			    <div class="col-lg-3 col-md-6 col-sm-6  col-custom product-area">
+				<div class="product-item">
+				    <div class="single-product position-relative mr-0 ml-0">
+					<div class="product-image">
+<                      	<a class="d-block" href="{% url 'product_detail' pk=product.id %}">
+						<img src="{% static 'assets/images/product/1.jpg' %}" alt="" class="product-image-1 w-100">
+						<img src="{% static 'assets/images/product/1.jpg' %}" alt="" class="product-image-2 position-absolute w-100">
+					    </a>
+					    <span class="onsale">تخفیف!</span>
+					</div>
+					<div class="product-content">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="{% url 'product_detail' pk=product.id %}">{{ product.name }}</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">{{ product.price|intcomma  }} تومان</span>
+						<span class="old-price"><del>{{ product.price|intcomma  }} تومان</del></span>
+					    </div>
+					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					</div>
+					<div class="product-content-listview">
+					    <div class="product-title">
+						<h4 class="title-2"> <a href="{% url 'product_detail' pk=product.id %}">{{ product.name }}</a></h4>
+					    </div>
+					    <div class="product-rating">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					    </div>
+					    <div class="price-box">
+						<span class="regular-price ">{{ product.price|intcomma  }} تومان</span>
+						<span class="old-price"><del>{{ product.price|intcomma  }} تومان</del></span>
+					    </div>
+						{% if product.description %}
+					    <p class="desc-content">{{ product.description }}</p>
+						{% endif %}
+					    <div class="button-listview">
+						<a href="cart.html" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="افزودن به سبد خرید"> <span>افزودن به سبد خرید</span> </a>
+						<a class="list-icon" href="#" title="مقایسه">
+						    <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="مقایسه"></i>
+						</a>
+						<a class="list-icon" href="#" title="لیست خرید بعدی">
+						    <i class="lnr lnr-heart" data-toggle="tooltip" data-placement="top" title="پسندیدم"></i>
+						</a>
+					    </div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+				{% endfor %}
+			</div>
+			<!-- Shop Wrapper End -->
+			<!-- Bottom Toolbar Start -->
+			<div class="row">
+			    <div class="col-sm-12 col-custom">
+				<div class="toolbar-bottom">
+				    <div class="pagination">
+					<ul>
+					    <li class="current">1</li>
+					    <li><a href="#">2</a></li>
+					    <li><a href="#">3</a></li>
+					    <li class="next"><a href="#">بعدی</a></li>
+					    <li><a href="#">&gt;&gt;</a></li>
+					</ul>
+				    </div>
+				    <p class="desc-content text-center text-sm-right mb-0">نمایش 1 - 12 از 34 نتیجه</p>
+				</div>
+			    </div>
+			</div>
+			<!-- Bottom Toolbar End -->
+		    </div>
+		</div>
+	    </div>
+	</div>
+	<!-- Shop Main Area End Here -->
+{% endblock context %}
