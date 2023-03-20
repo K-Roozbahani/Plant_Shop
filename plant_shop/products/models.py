@@ -47,6 +47,7 @@ class Product(AbstractModel):
     categories = models.ManyToManyField(Category, related_name='products', verbose_name=_('categories'))
     attributes = models.ManyToManyField(ProductAttribute, related_name='products', verbose_name=_('attributes'))
     off = models.PositiveIntegerField(verbose_name='off', blank=True, null=True)
+    description = models.CharField(verbose_name=_("description"), max_length=1024, blank=True, null=True)
 
     class Meta:
         db_table = 'product'
