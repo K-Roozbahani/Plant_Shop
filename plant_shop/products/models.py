@@ -69,9 +69,11 @@ class Product(AbstractModel):
 class Picture(AbstractModel):
     owner = models.ForeignKey(User, models.CASCADE, related_name='pictures', verbose_name=_('owner'))
     image = models.ImageField(verbose_name=_('image'), upload_to='products/pictures/')
-    product = models.ForeignKey(Product, models.CASCADE, related_name='pictures')
+    product = models.ForeignKey(Product, models.CASCADE, related_name='pictures', verbose_name=_('product'))
+    number = models.PositiveIntegerField(verbose_name=_('number'))
 
     class Meta:
+        unique_together = ("product", "number")
         db_table = 'product_picture'
         verbose_name = _('product picture')
         verbose_name_plural = _('product pictures')
