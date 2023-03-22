@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import Category, ProductAttribute, Product, Cart, CartItem
+from ..models import Category, ProductAttribute, Product, Cart, CartItem, Picture
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -18,14 +18,30 @@ class ProductsAttributeSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+class PictureSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(use_url=True)
+
+    class Meta:
+        model = Picture
+        fields = ("id", "image", "number")
+
+
 class ProductSerializer(serializers.ModelSerializer):
     attributes = ProductsAttributeSerializer(many=True)
     categories = serializers.StringRelatedField(many=True)
     image = serializers.ImageField(use_url=True)
+    pictures = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
-        fields = ('id', 'categories', 'name', 'price', 'stock', 'description', 'attributes', 'image')
+        fields = ('id', 'categories', 'name', 'price', 'stock', 'description', 'attributes', 'image', 'pictures')
+
+    def get_pictures(self, obj):
+        try:
+            pictures = obj.pictures.all().order_by("number")
+        except:
+            return None
+        return PictureSerializer(instance=pictures, many=True, read_only=True).data
 
 
 # this class get product primary key and display product data serializer
