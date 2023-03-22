@@ -12,7 +12,6 @@ class ProductView(View):
             context = {'products': api_products, 'cart': cart}
             return render(request, 'shop-fullwidth.html', context)
         elif pk:
-            if not pk:
-                api_product = ProductApiView.as_view({'get': 'retrieve'})(request).data
-                context = {'product': api_product, 'cart': cart}
-                return render(request, 'shop-fullwidth.html', context)
+            api_product = ProductApiView.as_view({'get': 'retrieve'})(request=request, pk=pk).data
+            context = {'product': api_product, 'cart': cart}
+            return render(request, 'product-details.html', context)
