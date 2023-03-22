@@ -4,7 +4,7 @@ from .models import Product, Picture, Category, ProductAttribute
 
 class PictureTabularInline(admin.TabularInline):
     model = Picture
-    fields = ('owner', 'image')
+    fields = ('owner', 'image', "number")
 
 
 @admin.register(Category)
