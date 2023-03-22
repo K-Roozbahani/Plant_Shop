@@ -13,7 +13,7 @@ from rest_framework.pagination import PageNumberPagination
 
 
 class ProductApiView(viewsets.ReadOnlyModelViewSet):
-    queryset = Product.valid_objects.all().order_by('priority')
+    queryset = Product.valid_objects.prefetch_related("pictures").all().order_by('priority')
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['categories']
