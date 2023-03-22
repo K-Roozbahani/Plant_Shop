@@ -40,6 +40,13 @@ class ProductAttribute(AbstractModel):
 
 
 class Product(AbstractModel):
+
+    TOP_PRIORITY = 0
+    HIGH_PRIORITY = 1
+    NORMAL_PRIORITY = 2
+    LOW_PRIORITY = 3
+    PRIORITIES = ((TOP_PRIORITY, "top"), (HIGH_PRIORITY, "high"), (NORMAL_PRIORITY, "normal"), (LOW_PRIORITY, "low"))
+
     image = models.ImageField(verbose_name=_('image'), upload_to='products/images/')
     name = models.CharField(verbose_name=_('name'), max_length=64)
     price = models.PositiveSmallIntegerField(verbose_name=_('price'), default=0)
@@ -48,6 +55,7 @@ class Product(AbstractModel):
     attributes = models.ManyToManyField(ProductAttribute, related_name='products', verbose_name=_('attributes'))
     off = models.PositiveIntegerField(verbose_name='off', blank=True, null=True)
     description = models.CharField(verbose_name=_("description"), max_length=1024, blank=True, null=True)
+    priority = models.PositiveSmallIntegerField(verbose_name=_("priority"), default=2, choices=PRIORITIES)
 
     class Meta:
         db_table = 'product'
