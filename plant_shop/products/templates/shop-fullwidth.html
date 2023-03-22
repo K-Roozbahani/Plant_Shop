@@ -39,9 +39,9 @@
 				<div class="product-item">
 				    <div class="single-product position-relative mr-0 ml-0">
 					<div class="product-image">
-<                      	<a class="d-block" href="{% url 'product_detail' pk=product.id %}">
-						<img src="{% static 'assets/images/product/1.jpg' %}" alt="" class="product-image-1 w-100">
-						<img src="{% static 'assets/images/product/1.jpg' %}" alt="" class="product-image-2 position-absolute w-100">
+                      	<a class="d-block" href="{% url 'product_detail' pk=product.id %}">
+						<img src="{{ product.image }}" alt="" class="product-image-1 w-100">
+						<img src="{{ product.image }}" alt="" class="product-image-2 position-absolute w-100">
 					    </a>
 					    <span class="onsale">تخفیف!</span>
 					</div>
