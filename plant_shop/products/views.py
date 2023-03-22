@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 
 from .api.views import ProductApiView, CartApiView
+from .models import Product
 
 
 class ProductView(View):
@@ -16,8 +17,9 @@ class ProductView(View):
             context = {'products': api_products.data, 'cart': cart.data}
             return render(request, 'shop-fullwidth.html', context)
         elif pk:
+            top_products = Product.valid_objects.all().order_by("priority")[:6]
             api_product = ProductApiView.as_view({'get': 'retrieve'})(request=request, pk=pk)
             if api_product.status_code != 200:
                 HttpResponse(status=404, content="product not found")
-            context = {'product': api_product.data, 'cart': cart.data}
+            context = {'product': api_product.data, 'cart': cart.data, 'top_products': top_products}
             return render(request, 'product-details.html', context)
