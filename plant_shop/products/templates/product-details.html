@@ -94,9 +94,10 @@
 		    <div class="col-12 col-custom">
 			<div class="product-slider swiper-container anime-element-multi">
 			    <div class="swiper-wrapper">
+					{% for top_product in top_products %}
 				<div class="single-item swiper-slide">
 				    <!--Single Product Start-->
-					{% for top_product in top_products %}
+
 				    <div class="single-product position-relative mb-30">
 					<div class="product-image">
 					    <a class="d-block" href="product-details.html">
@@ -131,9 +132,10 @@
 						<span class="regular-price ">{{ top_product.price }} تومان</span>
 						<span class="old-price"><del>{{ top_product.price }} تومان</del></span>
 					    </div>
-					    <a href="cart.html" class="btn product-cart">افزودن به سبد خرید</a>
+					    <a href="#" class="btn product-cart">افزودن به سبد خرید</a>
 					</div>
 				    </div>
+					</div>
 					{% endfor %}
 				    <!--Single Product End-->
 				</div>
