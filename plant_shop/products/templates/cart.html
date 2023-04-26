@@ -22,7 +22,7 @@
 				    </tr>
 				</thead>
 				<tbody>
-				{% for item in cart_items %}
+				{% for item in cart.cart_items %}
 				    <tr>
 					<td class="pro-thumbnail"><a href="{% url 'product_detail' item.product.id %}"><img class="img-fluid" src="{{ item.product.image }}" alt="loading image"></a></td>
 					<td class="pro-title"><a href="#">{{ item.product.name }} <br>کد محصول {{ item.product.id }}</a></td>
@@ -39,8 +39,9 @@
 					    </div>
 					</td>
 					<td class="pro-subtotal"><span>{{ item.total_price }} تومان</span></td>
-					<td class="pro-remove"><a href="{% url 'cart' item.id %}"><i class="lnr lnr-trash"></i></a></td>
+					<td class="pro-remove"><a href="{% url 'cart_item_remove' item.id %}"><i class="lnr lnr-trash"></i></a></td>
 				    </tr>
+				{% endfor %}
 				</tbody>
 			    </table>
 			</div>
@@ -68,11 +69,11 @@
 				    <table class="table">
 					<tr>
 					    <td>مبلغ کل</td>
-					    <td>230،000 تومان</td>
+					    <td>{{ cart.total_price}} تومان</td>
 					</tr>
 					<tr>
 					    <td>هزینه ارسال</td>
-					    <td>70،000 تومان</td>
+					    <td>50،000 تومان</td>
 					</tr>
 					<tr class="total">
 					    <td>قابل پرداخت</td>
