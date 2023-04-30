@@ -69,6 +69,9 @@ class DeliveryInformation(AbstractModel):
                                                       r'^989[0-3,9]\d{8}$', 'Enter a valid phone number.',
                                                       'invalid')]
                                                   )
+    email = models.EmailField(verbose_name=_('email'), blank=True, null=True)
+    state = models.CharField(verbose_name=_("state"), max_length=32, default="Tehran")
+    city = models.CharField(verbose_name=_("city"), max_length=32, default="Tehran")
     address = models.TextField(verbose_name=_('address'))
     postal_code = models.PositiveIntegerField(verbose_name=_('postal code'),
                                               validators=[MaxValueValidator(9_999_999_999),
