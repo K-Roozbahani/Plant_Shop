@@ -33,7 +33,6 @@ class CartView(View):
             return Http404()
 
         if not pk:
-            for item in cart.data["cart_items"]:
             context = {'cart': cart.data}
             return render(request, 'cart.html', context)
         elif pk:
