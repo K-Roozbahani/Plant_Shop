@@ -73,9 +73,14 @@ class CartItemSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = self.context['request'].user
         cart = Cart.objects.get(user=user)
-        instance = CartItem.objects.create(cart=cart, **validated_data)
+        try:
+            instance = CartItem.valid_objects.get(product=validated_data["product"], cart=cart)
+        except CartItem.DoesNotExist:
+            instance = CartItem.objects.create(cart=cart, **validated_data)
+            return instance
+        instance.count = validated_data["count"]
+        instance.save()
         return instance
-
     def get_total_price(self, obj):
         return obj.get_price()
 
