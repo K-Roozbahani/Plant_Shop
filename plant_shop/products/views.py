@@ -1,19 +1,20 @@
 from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
 from django.views import View
+from django.http import HttpRequest, Http404
 
 from .api.views import ProductApiView, CartApiView, CartItemApiView
-from .models import Product
+from .models import Product, CartItem
 
 
 class ProductView(View):
     def get(self, request, pk=None):
         cart = CartApiView.as_view({'get': 'list'})(request)
         if cart.status_code != 200:
-            HttpResponse(status=404, content="somthing wrong happen")
+            return Http404()
         if not pk:
             api_products = ProductApiView.as_view({'get': 'list'})(request)
             if api_products.status_code != 200:
-                HttpResponse(status=404, content="somthing wrong happen")
+                return Http404()
             context = {'products': api_products.data, 'cart': cart.data}
             return render(request, 'shop-fullwidth.html', context)
         elif pk:
@@ -29,16 +30,40 @@ class CartView(View):
     def get(self, request, pk=None):
         cart = CartApiView.as_view({'get': 'list'})(request)
         if cart.status_code != 200:
-            HttpResponse(status=404, content="somthing wrong happen")
+            return Http404()
 
         if not pk:
             for item in cart.data["cart_items"]:
-                print('kaveh    :-------', item["product"]["name"])
             context = {'cart': cart.data}
             return render(request, 'cart.html', context)
         elif pk:
             updated_card = CartItemApiView.as_view({'get': "destroy"})(request=request, pk=pk)
-            print(updated_card.status_code)
             if updated_card.status_code != 200:
-                HttpResponse(status=404, content="Somthing wrong happen")
+                return Http404()
+
+            return HttpResponseRedirect("/products/cart/")
+
+    def post(self, request, pk=None):
+
+        # if pk not none add one new item
+        if pk is not None:
+            new_item = CartItemApiView.as_view({'post': 'create'})(request=request)
+            if new_item.statos_code == 200:
+                return HttpResponseRedirect("/products/cart/")
+            else:
+                return Http404()
+
+        if pk is None:
+            cart_items = CartItem.valid_objects.filter(cart__user=request.user).select_related("product")
+            request_cart_items = []
+            products = list(request.POST.keys())
+            for product_id in products[1:]:
+                try:
+                    item = cart_items.get(product__id=int(product_id))
+                except CartItem.DoesNotExsist:
+                    continue
+                if item.count != int(request.POST.get(product_id)):
+                    item.count = int(request.POST.get(product_id))
+                    request_cart_items.append(item)
+            CartItem.objects.bulk_update(request_cart_items, ["count"])
             return HttpResponseRedirect("/products/cart/")
