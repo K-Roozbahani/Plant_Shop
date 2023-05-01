@@ -3,6 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
 
 from .serializers import (OrderItemSerializer, OrderSerializer,
                           DeliveryInformationSerializer, CheckoutSerializer)
@@ -13,6 +14,7 @@ from ..models import OrderItem, Order, DeliveryInformation, Checkout
 class OrderApiView(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [JSONParser]
 
     def get_queryset(self):
         user = self.request.user
