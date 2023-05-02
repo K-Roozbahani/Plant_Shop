@@ -76,6 +76,7 @@ class DeliveryInformation(AbstractModel):
     postal_code = models.PositiveIntegerField(verbose_name=_('postal code'),
                                               validators=[MaxValueValidator(9_999_999_999),
                                                           MinValueValidator(1_000_000_000)])
+    description = models.TextField(verbose_name=_("description"), blank=True, null=True)
 
     class Meta:
         unique_together = ('address', 'phone_number')
