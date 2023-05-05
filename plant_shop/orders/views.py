@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import View
 from .forms import DeliveryInformationForm
 from .models import DeliveryInformation, Order, OrderItem, Checkout
-from plant_shop.products.models import CartItem
+from products.models import CartItem
 
 
 class CheckoutView(View):
