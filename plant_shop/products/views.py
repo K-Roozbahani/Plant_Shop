@@ -4,36 +4,32 @@ from django.http import HttpRequest, Http404
 
 from .api.views import ProductApiView, CartApiView, CartItemApiView
 from .models import Product, CartItem
+from .utils.views.apis import get_cart
 
 
 class ProductView(View):
     def get(self, request, pk=None):
-        cart = CartApiView.as_view({'get': 'list'})(request)
-        if cart.status_code != 200:
-            return Http404()
+        cart = get_cart(request)
         if not pk:
             api_products = ProductApiView.as_view({'get': 'list'})(request)
             if api_products.status_code != 200:
                 return Http404()
-            context = {'products': api_products.data, 'cart': cart.data}
+            context = {'products': api_products.data, 'cart': cart}
             return render(request, 'shop-fullwidth.html', context)
         elif pk:
             top_products = Product.valid_objects.all().order_by("priority")[:6]
             api_product = ProductApiView.as_view({'get': 'retrieve'})(request=request, pk=pk)
             if api_product.status_code != 200:
                 HttpResponse(status=404, content="product not found")
-            context = {'product': api_product.data, 'cart': cart.data, 'top_products': top_products}
+            context = {'product': api_product.data, 'cart': cart, 'top_products': top_products}
             return render(request, 'product-details.html', context)
 
 
 class CartView(View):
     def get(self, request, pk=None):
-        cart = CartApiView.as_view({'get': 'list'})(request)
-        if cart.status_code != 200:
-            return Http404()
-
+        cart = get_cart(request)
         if not pk:
-            context = {'cart': cart.data}
+            context = {'cart': cart}
             return render(request, 'cart.html', context)
         elif pk:
             updated_card = CartItemApiView.as_view({'get': "destroy"})(request=request, pk=pk)
