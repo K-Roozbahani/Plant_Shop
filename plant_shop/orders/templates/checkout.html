@@ -3,9 +3,10 @@
 {% load humanize %}
 {% block title_content %}ثبت سفارش{% endblock title_content %}
 {% block context %}
+
 	<!-- Checkout Area Start Here -->
 	<div class="checkout-area mt-no-text">
-	    <div class="container custom-co</form>ntainer">
+	    <div class="container custom-container">
 		<div class="row">
 		    <div class="col-lg-6 col-12 col-custom">
 			<form action="#">
@@ -21,7 +22,7 @@
 				    <div class="col-md-6 col-custom">
 					<div class="checkout-form-list">
 					    <label>نام خانوادگی <span class="required">*</span></label>
-						{{ form.last_name }}
+					    {{ form.last_name }}
 					</div>
 				    </div>
 				    <div class="col-md-12 col-custom">
@@ -29,6 +30,7 @@
 					    <label>آدرس <span class="required">*</span></label>
 					    {{ form.address }}
 					</div>
+				    </div>
 				    <div class="col-md-12 col-custom">
 					<div class="checkout-form-list">
 					    <label>استان <span class="required">*</span></label>
@@ -50,7 +52,7 @@
 				    <div class="col-md-6 col-custom">
 					<div class="checkout-form-list">
 					    <label>ایمیل <span class="required">*</span></label>
-					    {{ form.email }}
+						{{ form.email }}
 					</div>
 				    </div>
 				    <div class="col-md-6 col-custom">
@@ -60,14 +62,7 @@
 					</div>
 				    </div>
 				</div>
-				<div class="different-address">
-				    <div class="order-notes mt-3">
-					<div class="checkout-form-list checkout-form-list-2">
-					    <label>یادداشت</label>
-					    {{ form.description}}
-					</div>
-				    </div>
-				</div>
+			    </div>
 			</form>
 		    </div>
 		    <div class="col-lg-6 col-12 col-custom">
@@ -81,13 +76,12 @@
 					    <th class="cart-product-total">مبلغ کل</th>
 					</tr>
 				    </thead>
-
 				    <tbody>
-					{% for item in form.items %}
+					{% for item in cart.cart_items %}
 					<tr class="cart_item">
-					    <td class="cart-product-name">{{ item.name }}<strong class="product-quantity">
+					    <td class="cart-product-name">{{ item.product.name }}<strong class="product-quantity">
 						    × {{ item.count }}</strong></td>
-					    <td class="cart-product-total text-center"><span class="amount">165.000 تومان</span></td>
+					    <td class="cart-product-total text-center"><span class="amount">{{ item.total_price }} تومان</span></td>
 					</tr>
 					{% endfor %}
 				    </tbody>
@@ -98,7 +92,7 @@
 					</tr>
 					<tr class="order-total">
 					    <th>قابل پرداخت</th>
-					    <td class="text-center"><strong><span class="amount">{{ cart.total_price }}/span></strong></td>
+					    <td class="text-center"><strong><span class="amount">215.000 تومان</span></strong></td>
 					</tr>
 				    </tfoot>
 				</table>
@@ -116,3 +110,5 @@
 	    </div>
 	</div>
 	<!-- Checkout Area End Here -->
+
+{% endblock %}
