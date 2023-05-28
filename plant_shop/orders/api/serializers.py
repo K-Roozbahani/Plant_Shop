@@ -95,4 +95,4 @@ class CheckoutSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Checkout
-        fields = ('id', 'order', 'delivery_information', 'order', 'post_type', 'send_cost', 'tracking_code')
+        fields = ('id', 'order', 'delivery_information', 'order', 'post_type', 'send_cost')
