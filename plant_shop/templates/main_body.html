@@ -164,10 +164,12 @@
 				    <li class="minicart-wrap">
 					<a href="#" class="minicart-btn toolbar-btn">
 					    <i class="fa fa-shopping-cart"></i>
+						{% if cart.cart_items %}
 					    <span class="cart-item_count">{{ cart.cart_items|length }}</span> <!-- ---------------- number of cart items -->
+						{% endif %}
 					</a>
 						<!-- ********************************* cart items ********************************* -->
-						{% if cart.cart_items %}
+						{% if cart and cart.cart_items %}
 					<div class="cart-item-wrapper dropdown-sidemenu dropdown-hover-2">
 						{% for cart_item in cart.cart_items %}
 					    <div class="single-cart-item">
