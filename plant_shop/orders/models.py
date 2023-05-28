@@ -70,8 +70,8 @@ class DeliveryInformation(AbstractModel):
                                                       'invalid')]
                                                   )
     email = models.EmailField(verbose_name=_('email'), blank=True, null=True)
-    state = models.CharField(verbose_name=_("state"), max_length=32, default="Tehran")
-    city = models.CharField(verbose_name=_("city"), max_length=32, default="Tehran")
+    state = models.CharField(verbose_name=_("state"), max_length=32, default="تهران")
+    city = models.CharField(verbose_name=_("city"), max_length=32, default="تهران")
     address = models.TextField(verbose_name=_('address'))
     postal_code = models.PositiveIntegerField(verbose_name=_('postal code'),
                                               validators=[MaxValueValidator(9_999_999_999),
@@ -94,7 +94,6 @@ class Checkout(AbstractModel):
     order = models.OneToOneField(Order, models.CASCADE, related_name='order_send')
     post_type = models.PositiveSmallIntegerField(verbose_name=_('post type'), default=1, choices=POST_TYPE)
     send_cost = models.PositiveBigIntegerField(verbose_name=_('send cost'), default=0)
-    tracking_code = models.PositiveIntegerField(verbose_name=_('tracking code'), auto_created=True, unique=True)
 
     class Meta:
         db_table = 'checkout'
