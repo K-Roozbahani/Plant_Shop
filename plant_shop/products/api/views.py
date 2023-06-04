@@ -41,9 +41,7 @@ class CartApiView(viewsets.ViewSet):
         total_price = 0
         if not is_create:
             cart_items = CartItem.valid_objects.filter(cart=cart)
-            print("Cart Items:---> ", len(cart_items))
             for item in cart_items:
-                print("item: --->", )
                 total_price += item.get_price()
             if cart.total_price != total_price:
                 cart.total_price = total_price
