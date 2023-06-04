@@ -81,6 +81,7 @@ class CartItemSerializer(serializers.ModelSerializer):
         instance.count = validated_data["count"]
         instance.save()
         return instance
+
     def get_total_price(self, obj):
         return obj.get_price()
 
@@ -91,7 +92,8 @@ class CartItemsRelatedField(serializers.RelatedField):
             return None
 
         else:
-            return CartItemSerializer(instance=value, many=True).data
+            cart_items = value.filter(is_valid=True)
+            return CartItemSerializer(instance=cart_items, many=True).data
 
     def to_internal_value(self, data):
         pass
