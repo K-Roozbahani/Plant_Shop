@@ -9,7 +9,7 @@
 	    <div class="container custom-container">
 		<div class="row">
 		    <div class="col-lg-6 col-12 col-custom">
-			<form action="#">
+			<form action="{% url 'checkout' %}" method="post">{% csrf_token %}
 			    <div class="checkbox-form">
 				<h3>اطلاعات فاکتور</h3>
 				<div class="row">
@@ -61,6 +61,13 @@
 					    {{ form.phone_number }}
 					</div>
 				    </div>
+					<div class="payment-method">
+				<div class="payment-accordion">
+				    <div class="order-button-payment">
+					<button type="submit" class="btn flosun-button secondary-btn black-color rounded-0 w-100">پرداخت و ثبت نهایی سفارش</button>
+				    </div>
+				</div>
+			    </div>
 				</div>
 			    </div>
 			</form>
@@ -97,13 +104,7 @@
 				    </tfoot>
 				</table>
 			    </div>
-			    <div class="payment-method">
-				<div class="payment-accordion">
-				    <div class="order-button-payment">
-					<button class="btn flosun-button secondary-btn black-color rounded-0 w-100">پرداخت و ثبت نهایی سفارش</button>
-				    </div>
-				</div>
-			    </div>
+
 			</div>
 		    </div>
 		</div>
