@@ -36,15 +36,18 @@ class CartApiView(viewsets.ViewSet):
     parser_classes = [JSONParser]
 
     def list(self, request):
-        cart = get_object_or_404(Cart, user=request.user)
+        cart, is_create = Cart.valid_objects.get_or_create(user=request.user)
+        print(cart, is_create)
         total_price = 0
-        cart_items = CartItem.valid_objects.filter(cart=cart)
-
-        for item in cart_items:
-            total_price += item.get_price()
-        if cart.total_price != total_price:
-            cart.total_price = total_price
-            cart.save()
+        if not is_create:
+            cart_items = CartItem.valid_objects.filter(cart=cart)
+            print("Cart Items:---> ", len(cart_items))
+            for item in cart_items:
+                print("item: --->", )
+                total_price += item.get_price()
+            if cart.total_price != total_price:
+                cart.total_price = total_price
+                cart.save()
 
         serializer = CartSerializer(instance=cart)
         return Response(serializer.data)
