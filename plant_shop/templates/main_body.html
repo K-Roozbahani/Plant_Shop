@@ -162,7 +162,7 @@
 					{% block cart_navbar %}
 				<ul class="nav">
 				    <li class="minicart-wrap">
-					<a href="#" class="minicart-btn toolbar-btn">
+					<a href="{% url 'cart' %}" class="minicart-btn toolbar-btn">
 					    <i class="fa fa-shopping-cart"></i>
 						{% if cart.cart_items %}
 					    <span class="cart-item_count">{{ cart.cart_items|length }}</span> <!-- ---------------- number of cart items -->
@@ -193,8 +193,8 @@
 						<h5>{{ cart.total_price|intcomma }} تومان</h5>
 					    </div>
 					    <div class="cart-links d-flex justify-content-between">
-						<a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">سبد خرید</a>
-						<a class="btn flosun-button secondary-btn rounded-0" href="checkout.html">ثبت نهایی</a>
+						<a class="btn product-cart button-icon flosun-button dark-btn" href="{% url 'cart' %}">سبد خرید</a>
+						<a class="btn flosun-button secondary-btn rounded-0" href="{% url 'checkout' %}">ثبت نهایی</a>
 					    </div>
 					</div>
 				    </li>
