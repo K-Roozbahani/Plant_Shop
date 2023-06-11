@@ -53,6 +53,8 @@ class ProductRelatedField(serializers.RelatedField):
         return product
 
     def to_internal_value(self, data):
+        if type(data) == str and data.isnumeric():
+            data = int(data)
         if type(data) != int:
             raise serializers.ValidationError(f"Input must be integer not {type(data)}")
         try:
