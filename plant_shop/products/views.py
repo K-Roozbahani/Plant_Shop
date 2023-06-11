@@ -33,20 +33,29 @@ class CartView(View):
             return render(request, 'cart.html', context)
         elif pk:
             updated_card = CartItemApiView.as_view({'get': "destroy"})(request=request, pk=pk)
-            if updated_card.status_code != 200:
-                return Http404()
+            if updated_card.status_code not in [200, 204]:
+                print("status code: \t", updated_card.status_code)
+                print("status_text: \t", updated_card.status_text)
+                print("context_data: \t", updated_card.context_data)
+                print("data: \t", updated_card.data)
+                raise Http404()
 
             return HttpResponseRedirect("/products/cart/")
 
     def post(self, request, pk=None):
 
         # if pk not none add one new item
+
         if pk is not None:
             new_item = CartItemApiView.as_view({'post': 'create'})(request=request)
-            if new_item.statos_code == 200:
+            if new_item.status_code in [200, 201]:
                 return HttpResponseRedirect("/products/cart/")
             else:
-                return Http404()
+                print("status code: \t", new_item.status_code)
+                print("status_text: \t", new_item.status_text)
+                print("context_data: \t", new_item.context_data)
+                print("data: \t", new_item.data)
+                raise Http404()
 
         if pk is None:
             cart_items = CartItem.valid_objects.filter(cart__user=request.user).select_related("product")
@@ -55,7 +64,7 @@ class CartView(View):
             for product_id in products[1:]:
                 try:
                     item = cart_items.get(product__id=int(product_id))
-                except CartItem.DoesNotExsist:
+                except CartItem.DoesNotExist:
                     continue
                 if item.count != int(request.POST.get(product_id)):
                     item.count = int(request.POST.get(product_id))
