@@ -3,7 +3,7 @@ from rest_framework import mixins
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, FormParser
 from ..models import Product, Category, Cart, CartItem
 from .serializers import (ProductSerializer, CategorySerializer, CartSerializer,
                           CartItemSerializer)
@@ -22,7 +22,7 @@ class ProductApiView(viewsets.ReadOnlyModelViewSet):
     ordering = ['created_time']
     pagination_class = PageNumberPagination
     page_size = 8
-    parser_classes = [JSONParser]
+    parser_classes = [JSONParser, FormParser]
 
 
 class CategoryApiView(viewsets.ReadOnlyModelViewSet):
@@ -54,7 +54,7 @@ class CartApiView(viewsets.ViewSet):
 class CartItemApiView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = CartItemSerializer
-    parser_classes = [JSONParser]
+    parser_classes = [JSONParser, FormParser]
 
     def get_queryset(self):
         cart = self.request.user.cart
