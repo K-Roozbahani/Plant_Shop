@@ -8,6 +8,8 @@ class User(AbstractUser):
     message = "Phone number must be entered in the format '+123456789'. Up to 15 digits allowed."
 
     phone_number = models.CharField(verbose_name=_('phone number'), max_length=16, unique=True,
-                                    validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$', message=message)])
+                                    validators=[RegexValidator(regex=r'^09\d{9}$', message=message)])
     USERNAME_FIELD = "phone_number"
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['phone_number']
+
+# regex=r'^\+?1?\d{9,15}$
