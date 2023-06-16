@@ -1,0 +1,45 @@
+﻿{% extends "main_body.html" %}
+{% load static %}
+{% load humanize %}
+{% block title_content %}ورود اعضا{% endblock title_content %}
+{% block context %}
+	<!-- Login Area Start Here -->
+	<div class="login-register-area mt-no-text">
+	    <div class="container custom-area">
+		<div class="row">
+		    <div class="col-12 col-lg-6 mx-auto col-custom">
+			<div class="login-register-wrapper">
+			    <div class="section-content text-center mb-5">
+				<h2 class="title-4 mb-2">ورود اعضا</h2>
+			    </div>
+			    <form action="{% url 'login' %}" method="post">
+				<div class="single-input-item mb-3">
+				    <input type="text" placeholder="نام کاربری یا شماره موبایل" name="phone_number">
+				</div>
+				<div class="single-input-item mb-3">
+				    <input type="password" placeholder="رمز عبور" name="password">
+				</div>
+				<div class="single-input-item mb-3">
+				    <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
+					<div class="remember-meta mb-3">
+					    <div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="rememberMe">
+						<label class="custom-control-label" for="rememberMe">مرا بخاطر بسپار</label>
+					    </div>
+					</div>
+					<a href="#" class="forget-pwd mb-3">رمز عبور را فراموش کردید ؟</a>
+				    </div>
+				</div>
+				<div class="single-input-item mb-3">
+				    <button class="btn flosun-button secondary-btn theme-color rounded-0" type="submit">ورود</button>
+				</div>
+				<div class="single-input-item">
+				    <a href="register.html">ثبت نام</a>
+				</div>
+			    </form>
+			</div>
+		    </div>
+		</div>
+	    </div>
+	</div>
+	<!-- Login Area End Here -->
