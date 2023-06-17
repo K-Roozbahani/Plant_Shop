@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.views import View
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.http import HttpResponseRedirect
+from .forms import AuthenticationForm
+
 
 class LoginUser(View):
     def get(self, request, failed_form=None):
@@ -20,5 +21,4 @@ class LoginUser(View):
             if user:
                 login(request=request, user=user)
                 return HttpResponseRedirect("/products/")
-
         return self.get(request, failed_form=form)
