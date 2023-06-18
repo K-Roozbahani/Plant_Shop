@@ -12,13 +12,14 @@
 			    <div class="section-content text-center mb-5">
 				<h2 class="title-4 mb-2">ورود اعضا</h2>
 			    </div>
-			    <form action="{% url 'login' %}" method="post">
+			    <form action="{% url 'login' %}" method="post">{% csrf_token %}
+					{{ form.non_field_errors }}
+					{% for field in form %}
 				<div class="single-input-item mb-3">
-				    <input type="text" placeholder="نام کاربری یا شماره موبایل" name="phone_number">
+					{{ field.errors }}
+				    {{ field }}
 				</div>
-				<div class="single-input-item mb-3">
-				    <input type="password" placeholder="رمز عبور" name="password">
-				</div>
+					{% endfor %}
 				<div class="single-input-item mb-3">
 				    <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
 					<div class="remember-meta mb-3">
@@ -43,3 +44,4 @@
 	    </div>
 	</div>
 	<!-- Login Area End Here -->
+{% endblock %}
