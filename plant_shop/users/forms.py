@@ -7,27 +7,32 @@ from .models import User
 
 
 class AuthenticationForm(forms.Form):
-    message = "Phone number must be entered in the format '+123456789'. Up to 15 digits allowed."
+    message = "لطفا شماره مبایل صحیح وارد کنید. شماره مبایل را با صفر وارد کنید. نمونه: 09123456789"
 
     username = forms.CharField(max_length=16,
-                               validators=[RegexValidator(regex=r'^09\d{9}$', message=message)])
+                               validators=[RegexValidator(regex=r'^09\d{9}$', message=message)],
+                               widget=forms.TextInput(attrs={"placeholder": "شماره مبایل\t 09123456789 "}))
     password = forms.CharField(
         label=_("Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "placeholder": "رمز عبور"}),
     )
     error_messages = {
         "invalid_login": _(
-            "Please enter a correct %(username)s and password. Note that both "
-            "fields may be case-sensitive."
+            "لطفا نام کاربری و رمز عبور را به صورت صحیح وارد کنید. نکته: کیبور روی زبان انگلسی باشد"
+            " و پسورد به حروف بزرگ و کوچک حساس می باشد."
         ),
-        "inactive": _("This account is inactive."),
+        "inactive": _("این کابری غیر فعال می باشد."),
     }
 
     def __init__(self, request=None, *args, **kwargs):
         self.request = request
         self.user_cache = None
-        super().__init__(data=request.POST, *args, **kwargs)
+        if self.request is None:
+            super().__init__(*args, **kwargs)
+
+        else:
+            super().__init__(data=request.POST, *args, **kwargs)
 
     def clean(self):
         username = self.cleaned_data.get("username")
