@@ -7,11 +7,13 @@ from .forms import AuthenticationForm
 
 class LoginUser(View):
     def get(self, request, failed_form=None):
-        if failed_form is not None:
+
+        if request.user.is_authenticated:
+            return HttpResponseRedirect("/products/")
+        form = failed_form
+        if form is None:
             form = AuthenticationForm()
-        else:
-            form = failed_form
-        context = {"from": form}
+        context = {"form": form}
         return render(request, "login.html", context=context)
 
     def post(self, request):
