@@ -33,7 +33,7 @@
 					    <div class="myaccount-content">
 						<h3>داشبورد</h3>
 						<div class="welcome">
-						    <p>سلام, <strong>محمد محمدی</strong></p>
+						    <p>سلام, <strong>{{ user.full_name }}</strong></p>
 						</div>
 						<p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
 					    </div>
@@ -56,61 +56,15 @@
 							    </tr>
 							</thead>
 							<tbody>
+							{% for order in users.orders %}
 							    <tr>
-								<td>1</td>
-								<td>12 شهریور 1399</td>
-								<td>در انتظار</td>
-								<td>300،000 تومان</td>
+								<td>{{ order.id }}</td>
+								<td>{{ order.create_time }}</td>
+								<td>{{ order.status }}</td>
+								<td>{{ orders.orders_price }} تومان</td>
 								<td><a href="cart.html" class="btn flosun-button secondary-btn theme-color  rounded-0">نمایش</a></td>
 							    </tr>
-							    <tr>
-								<td>2</td>
-								<td>11 مهر 1399</td>
-								<td>تائید شده</td>
-								<td>200،000 تومان</td>
-								<td><a href="cart.html" class="btn flosun-button secondary-btn theme-color  rounded-0">نمایش</a></td>
-							    </tr>
-							    <tr>
-								<td>3</td>
-								<td>1 آبان 1399</td>
-								<td>در حال بررسی</td>
-								<td>990،000 تومان</td>
-								<td><a href="cart.html" class="btn flosun-button secondary-btn theme-color  rounded-0">نمایش</a></td>
-							    </tr>
-							</tbody>
-						    </table>
-						</div>
-					    </div>
-					</div>
-					<!-- Single Tab Content End -->
-
-					<!-- Single Tab Content Start -->
-					<div class="tab-pane fade" id="download" role="tabpanel">
-					    <div class="myaccount-content">
-						<h3>دانلود ها</h3>
-						<div class="myaccount-table table-responsive text-center">
-						    <table class="table table-bordered">
-							<thead class="thead-light">
-							    <tr>
-								<th>محصول</th>
-								<th>تاریخ</th>
-								<th>انقضا</th>
-								<th>اعمال</th>
-							    </tr>
-							</thead>
-							<tbody>
-							    <tr>
-								<td>فایل آموزش نگهداری گل های آپارتمانی</td>
-								<td>12 شهریور 1399</td>
-								<td>دارد</td>
-								<td><a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-cloud-download ml-2"></i>دانلود فایل</a></td>
-							    </tr>
-							    <tr>
-								<td>ویدئو آموزش بونسای</td>
-								<td>1 آبان 1399</td>
-								<td>ندارد</td>
-								<td><a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-cloud-download ml-2"></i>دانلود فایل</a></td>
-							    </tr>
+							{% endfor %}
 							</tbody>
 						    </table>
 						</div>
@@ -131,11 +85,12 @@
 					<div class="tab-pane fade" id="address-edit" role="tabpanel">
 					    <div class="myaccount-content">
 						<h3>آدرس های من</h3>
+							{% for address in users.addresses %}
 						<address>
-						    <p><strong>محمد محمدی</strong></p>
-						    <p>تهران<br>
-							تهران</p>
-						    <p>ونک ، خیابان ملاصدرا پلاک 3</p>
+						    <p><strong>{{address.firstname}} {{ address.last_name }}</strong></p>
+						    <p>{{ address.state }}<br>
+							<p>{{ address.city }}<br>
+						    <p>{{ address.address }}</p>
 						</address>
 						<a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-edit ml-2"></i>ویرایش آدرس</a>
 					    </div>
