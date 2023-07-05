@@ -46,19 +46,26 @@ class UserRegisterView(View):
                 return HttpResponseRedirect("/products/")
         return self.get(request, failed_form=form)
 
-    class UserProfileView(View):
 
-        def get(self, request):
-            if not request.user.is_authenticated:
-                return HttpResponseRedirect("/users/login")
+class UserProfileView(View):
 
-            user = self.__get_user(request)
-            context = {"user": user, }
-        def __get_user(self, request):
-            user = request.user
-            try:
-                user.orders = user.orders.all()
-            except:
-                user.orders = None
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/users/login")
 
-            return user
+        context = self.__get_contenct(request)
+        return render(request, 'my-account.html', context=context)
+
+    def __get_contenct(self, request):
+        user = request.user
+        try:
+            orders = user.orders.all()
+        except:
+            orders = None
+
+        try:
+            addresses = user.delivery_information.all()
+        except:
+            addresses = None
+
+        return {'user': user, 'orders': orders, 'addresses': addresses}
