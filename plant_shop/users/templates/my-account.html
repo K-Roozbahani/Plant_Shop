@@ -33,7 +33,7 @@
 					    <div class="myaccount-content">
 						<h3>داشبورد</h3>
 						<div class="welcome">
-						    <p>سلام, <strong>{{ user.full_name }}</strong></p>
+						    <p>سلام, <strong>{{ user.first_name }}</strong></p>
 						</div>
 						<p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
 					    </div>
@@ -56,12 +56,12 @@
 							    </tr>
 							</thead>
 							<tbody>
-							{% for order in users.orders %}
+							{% for order in orders %}
 							    <tr>
 								<td>{{ order.id }}</td>
-								<td>{{ order.create_time }}</td>
-								<td>{{ order.status }}</td>
-								<td>{{ orders.orders_price }} تومان</td>
+								<td>{{ order.created_time }}</td>
+								<td>{{ order.get_status_display }}</td>
+								<td>{{ order.orders_price }} تومان</td>
 								<td><a href="cart.html" class="btn flosun-button secondary-btn theme-color  rounded-0">نمایش</a></td>
 							    </tr>
 							{% endfor %}
@@ -85,15 +85,16 @@
 					<div class="tab-pane fade" id="address-edit" role="tabpanel">
 					    <div class="myaccount-content">
 						<h3>آدرس های من</h3>
-							{% for address in users.addresses %}
+							{% for address in addresses %}
 						<address>
-						    <p><strong>{{address.firstname}} {{ address.last_name }}</strong></p>
+						    <p><strong>{{address.first_name}} {{ address.last_name }}</strong></p>
 						    <p>{{ address.state }}<br>
 							<p>{{ address.city }}<br>
 						    <p>{{ address.address }}</p>
 						</address>
 						<a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-edit ml-2"></i>ویرایش آدرس</a>
 					    </div>
+						{% endfor %}
 					</div>
 					<!-- Single Tab Content End -->
 
@@ -116,10 +117,6 @@
 								    <input type="text" id="last-name" placeholder="">
 								</div>
 							    </div>
-							</div>
-							<div class="single-input-item mb-3">
-							    <label for="display-name" class="required mb-1">نمایش نام</label>
-							    <input type="text" id="display-name" placeholder="">
 							</div>
 							<div class="single-input-item mb-3">
 							    <label for="email" class="required mb-1">ایمیل</label>
