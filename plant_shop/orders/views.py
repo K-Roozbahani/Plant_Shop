@@ -18,7 +18,7 @@ class CheckoutView(View):
         user = request.user
         # --check delivery information
         try:
-            delivery_information = DeliveryInformation.valid_objects.get(user=request.user)
+            delivery_information = DeliveryInformation.valid_objects.filter(user=request.user).last()
         except DeliveryInformation.DoesNotExist:
             delivery_information = DeliveryInformation(user=user)
 
@@ -28,6 +28,8 @@ class CheckoutView(View):
             request.method = "get"
             return self.get(request=request, form=form)
         elif form.has_changed():
+            form = DeliveryInformationForm(data=request.POST)
+            form.instance.user = user if request.user.is_authenticated else None
             form.save()
 
         # --create order
@@ -61,7 +63,7 @@ class CheckoutView(View):
         elif not form and not pk:
             if cart.get("cart_items"):
                 try:
-                    delivery_information = DeliveryInformation.valid_objects.get(user=request.user)
+                    delivery_information = DeliveryInformation.valid_objects.filter(user=request.user).last()
                     form = DeliveryInformationForm(instance=delivery_information)
                 except DeliveryInformation.DoesNotExist:
                     form = DeliveryInformationForm()
