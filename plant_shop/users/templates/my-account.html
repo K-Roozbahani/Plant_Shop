@@ -83,9 +83,10 @@
 
 					<!-- Single Tab Content Start -->
 					<div class="tab-pane fade" id="address-edit" role="tabpanel">
+						{% for address in addresses %}
 					    <div class="myaccount-content">
-						<h3>آدرس های من</h3>
-							{% for address in addresses %}
+						<h3>مشخصات و آدرس </h3>
+
 						<address>
 						    <p><strong>{{address.first_name}} {{ address.last_name }}</strong></p>
 						    <p>{{ address.state }}<br>
@@ -93,7 +94,9 @@
 						    <p>{{ address.address }}</p>
 						</address>
 						<a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-edit ml-2"></i>ویرایش آدرس</a>
-					    </div>
+
+
+						</div>
 						{% endfor %}
 					</div>
 					<!-- Single Tab Content End -->
