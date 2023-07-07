@@ -59,7 +59,7 @@ class ProductRelatedField(serializers.RelatedField):
             raise serializers.ValidationError(f"Input must be integer not {type(data)}")
         try:
             product_instance = Product.valid_objects.get(id=data)
-        except Product.DoesExist:
+        except Product.DoesNotExist:
             raise serializers.ValidationError("Products dose not exist")
         return product_instance
 
