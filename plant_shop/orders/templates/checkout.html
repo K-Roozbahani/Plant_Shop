@@ -15,48 +15,56 @@
 				<div class="row">
 				    <div class="col-md-6 col-custom">
 					<div class="checkout-form-list">
+						{{ form.first_name.errors }}
 					    <label>نام <span class="required">*</span></label>
 					    {{ form.first_name }}
 					</div>
 				    </div>
 				    <div class="col-md-6 col-custom">
 					<div class="checkout-form-list">
+						{{ form.last_name.errors }}
 					    <label>نام خانوادگی <span class="required">*</span></label>
 					    {{ form.last_name }}
 					</div>
 				    </div>
 				    <div class="col-md-12 col-custom">
 					<div class="checkout-form-list">
+						{{ form.address.errors }}
 					    <label>آدرس <span class="required">*</span></label>
 					    {{ form.address }}
 					</div>
 				    </div>
 				    <div class="col-md-12 col-custom">
 					<div class="checkout-form-list">
+						{{ form.state.errors }}
 					    <label>استان <span class="required">*</span></label>
 					    {{ form.state }}
 					</div>
 				    </div>
 				    <div class="col-md-6 col-custom">
 					<div class="checkout-form-list">
+						{{ form.city.errors }}
 					    <label>شهر <span class="required">*</span></label>
 					    {{ form.city }}
 					</div>
 				    </div>
 				    <div class="col-md-6 col-custom">
 					<div class="checkout-form-list">
+						{{ form.postal_code.errors }}
 					    <label>کد پستی <span class="required">*</span></label>
 					    {{ form.postal_code }}
 					</div>
 				    </div>
 				    <div class="col-md-6 col-custom">
 					<div class="checkout-form-list">
+						{{ form.email.errors }}
 					    <label>ایمیل <span class="required">*</span></label>
 						{{ form.email }}
 					</div>
 				    </div>
 				    <div class="col-md-6 col-custom">
 					<div class="checkout-form-list">
+						{{ form.phone_number.errors }}
 					    <label>تلفن <span class="required">*</span></label>
 					    {{ form.phone_number }}
 					</div>
