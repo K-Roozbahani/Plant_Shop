@@ -64,11 +64,11 @@ class DeliveryInformation(AbstractModel):
                              related_name='delivery_information', verbose_name='user')
     first_name = models.CharField(verbose_name=_('first name'), max_length=64)
     last_name = models.CharField(verbose_name=_('last name'), max_length=64)
-    phone_number = models.PositiveBigIntegerField(verbose_name=_('phone number'),
-                                                  validators=[RegexValidator(
-                                                      r'^989[0-3,9]\d{8}$', 'Enter a valid phone number.',
-                                                      'invalid')]
-                                                  )
+    phone_number = models.CharField(verbose_name=_('phone number'), max_length=16,
+                                    validators=[RegexValidator(
+                                        r'^09\d{9}$', 'Enter a valid phone number.',
+                                        'invalid')]
+                                    )
     email = models.EmailField(verbose_name=_('email'), blank=True, null=True)
     state = models.CharField(verbose_name=_("state"), max_length=32, default="تهران")
     city = models.CharField(verbose_name=_("city"), max_length=32, default="تهران")
@@ -79,7 +79,6 @@ class DeliveryInformation(AbstractModel):
     description = models.TextField(verbose_name=_("description"), blank=True, null=True)
 
     class Meta:
-        unique_together = ('address', 'phone_number')
         db_table = 'delivery_information'
         verbose_name = 'delivery information'
         verbose_name_plural = 'deliveries information'
