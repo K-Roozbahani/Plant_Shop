@@ -51,10 +51,6 @@ class CartView(View):
             if new_item.status_code in [200, 201]:
                 return HttpResponseRedirect("/products/cart/")
             else:
-                print("status code: \t", new_item.status_code)
-                print("status_text: \t", new_item.status_text)
-                print("context_data: \t", new_item.context_data)
-                print("data: \t", new_item.data)
                 raise Http404()
 
         if pk is None:
