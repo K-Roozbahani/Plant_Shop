@@ -56,10 +56,10 @@
 			    </div>
 			    <p class="desc-content mb-5">{{ product.description }}</p>
 				<form method="post" action="{% url 'cart_item_add' product.id %}" enctype="application/json">{% csrf_token %}
+					<input name="product"  value={{ product.id }} type="hidden" readonly>
 			    <div class="quantity-with_btn mb-5">
 				<div class="quantity">
 				    <div class="cart-plus-minus">
-						<input name="product"  value={{ product.id }} type="hidden" readonly>
 					<input class="cart-plus-minus-box" value="1" type="text" name="count">
 					<div class="dec qtybutton">-</div>
 					<div class="inc qtybutton">+</div>
